@@ -1,0 +1,74 @@
+# Android Studio
+.gradle/
+local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+/.idea/**/gradle.xml
+/.idea/**/workspace.xml
+*.iml
+*.hprof
+
+# Gradle
+/captures/
+/build/
+/.gradle/
+/app/build/
+/**/build/
+/gradle/wrapper/gradle-wrapper.jar
+
+# macOS
+.DS_Store
+
+# VS Code
+.vscode/
+
+# JetBrains
+.idea/
+*.iws
+*.ipr
+
+# Keystore files
+*.jks
+
+# Others
+*.apk
+*.ap_
+*.class
+*.log
+*.war
+*.ear
+*.swp
+*.lock
+*.cache
+*.tmp
+*.temp
+*.obj
+*.bin
+
+# Lint
+lint/reports/
+lint/outputs/
+
+# Logs
+*.log
+
+# Android/IntelliJ generated folder
+.idea/
+
+# Annotation processors output
+.factorypath
+
+# Gradle
+build/
+
+# Dependency directories
+/.gradle/
+/.idea/modules.xml
+.idea/assetWizardSettings.xml
+
+# Files for the dex
+*.dex
