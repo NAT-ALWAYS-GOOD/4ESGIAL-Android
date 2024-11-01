@@ -9,4 +9,14 @@ data class UserResponse(
     @SerializedName("isActive") val isActive: Boolean,
     @SerializedName("reservations") val reservations: List<ReservationResponse>,
     @SerializedName("favoriteTheater") val favoriteTheater: FavoriteTheaterResponse?
-)
+) {
+    fun toUserEntity(): UserEntity {
+        return UserEntity(
+            id = id,
+            username = username,
+            password = password,
+            isActive = isActive,
+            favoriteTheater = favoriteTheater?.toFavoriteTheaterEntity()
+        )
+    }
+}

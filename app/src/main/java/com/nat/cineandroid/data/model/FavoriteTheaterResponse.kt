@@ -13,4 +13,19 @@ data class FavoriteTheaterResponse(
     @SerializedName("country") val country: String,
     @SerializedName("latitude") val latitude: String,
     @SerializedName("longitude") val longitude: String
-)
+) {
+    fun toFavoriteTheaterEntity(): FavoriteTheaterEntity {
+        return FavoriteTheaterEntity(
+            id = id,
+            name = name,
+            description = description,
+            streetName = streetName,
+            streetNumber = streetNumber,
+            postalCode = postalCode,
+            city = city,
+            country = country,
+            latitude = latitude,
+            longitude = longitude
+        )
+    }
+}

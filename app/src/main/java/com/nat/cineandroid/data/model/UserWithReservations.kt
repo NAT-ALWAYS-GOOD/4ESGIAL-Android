@@ -9,6 +9,6 @@ data class UserWithReservations(
         parentColumn = "id",
         entityColumn = "userId"
     )
-    val reservation: List<ReservationEntity>
+    val reservations: List<ReservationEntity>
 )
 
