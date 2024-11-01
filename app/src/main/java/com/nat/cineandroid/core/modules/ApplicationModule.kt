@@ -1,10 +1,10 @@
-package com.nat.cineandroid
+package com.nat.cineandroid.core.modules
 
 import android.content.Context
 import androidx.room.Room
-import com.nat.cineandroid.data.AppDatabase
-import com.nat.cineandroid.data.api.ApiService
-import com.nat.cineandroid.data.model.UserDAO
+import com.nat.cineandroid.BuildConfig
+import com.nat.cineandroid.core.api.nat.NATCinemasAPI
+import com.nat.cineandroid.core.cache.ApplicationCache
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,7 +16,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object AppModule {
+object ApplicationModule {
 
     @Provides
     @Singleton
@@ -33,20 +33,17 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideApiService(retrofit: Retrofit): ApiService {
-        return retrofit.create(ApiService::class.java)
+    fun provideApiService(retrofit: Retrofit): NATCinemasAPI {
+        return retrofit.create(NATCinemasAPI::class.java)
     }
 
     @Provides
     @Singleton
-    fun provideDatabase(@ApplicationContext context: Context): AppDatabase {
+    fun provideDatabase(@ApplicationContext context: Context): ApplicationCache {
         return Room.databaseBuilder(
             context,
-            AppDatabase::class.java,
+            ApplicationCache::class.java,
             "cine.db"
         ).fallbackToDestructiveMigration().build()
     }
-
-    @Provides
-    fun provideUserDao(database: AppDatabase): UserDAO = database.userDao()
 }

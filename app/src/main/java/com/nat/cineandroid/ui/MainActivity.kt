@@ -1,12 +1,11 @@
-package com.nat.cineandroid
+package com.nat.cineandroid.ui
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.nat.cineandroid.ui.user.UserActivity
+import com.nat.cineandroid.R
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,7 +19,5 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
-        startActivity(Intent(this, UserActivity::class.java))
     }
 }

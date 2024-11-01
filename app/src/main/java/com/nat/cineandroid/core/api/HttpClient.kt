@@ -1,4 +1,4 @@
-package com.nat.cineandroid.data.utils
+package com.nat.cineandroid.core.api
 
 import android.content.Context
 import android.net.ConnectivityManager
@@ -6,7 +6,7 @@ import android.net.NetworkCapabilities
 import dagger.hilt.android.qualifiers.ApplicationContext
 import retrofit2.Response
 
-abstract class BaseRepository(@ApplicationContext private val context: Context) {
+abstract class HttpClient(@ApplicationContext private val context: Context) {
 
     private val connectivityManager =
         context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -22,25 +22,28 @@ abstract class BaseRepository(@ApplicationContext private val context: Context) 
         cacheCall: suspend () -> R?,
         saveToCache: suspend (R) -> Unit,
         transformResponse: (T) -> R
-    ): ApiResult<R> {
+    ): HttpResult<R> {
         return if (isNetworkAvailable()) {
             try {
                 val response = networkCall()
-                if (!response.isSuccessful) ApiResult.HttpError(response.code(), response.message())
+                if (!response.isSuccessful) HttpResult.HttpError(
+                    response.code(),
+                    response.message()
+                )
                 response.body()?.let { data ->
                     val transformedData = transformResponse(data)
                     saveToCache(transformedData)
-                    ApiResult.Success(transformedData)
-                } ?: ApiResult.NoData("No data")
+                    HttpResult.Success(transformedData)
+                } ?: HttpResult.NoData("No data")
             } catch (e: Exception) {
                 val dataFromCache = cacheCall()
-                dataFromCache?.let { ApiResult.Success(it) }
-                    ?: ApiResult.NetworkError("Error fetching data: ${e.message}")
+                dataFromCache?.let { HttpResult.Success(it) }
+                    ?: HttpResult.NetworkError("Error fetching data: ${e.message}")
             }
         } else {
             val dataFromCache = cacheCall()
-            dataFromCache?.let { ApiResult.Success(it) }
-                ?: ApiResult.NetworkError("No network connection and no data in cache")
+            dataFromCache?.let { HttpResult.Success(it) }
+                ?: HttpResult.NetworkError("No network connection and no data in cache")
         }
     }
 
@@ -48,21 +51,24 @@ abstract class BaseRepository(@ApplicationContext private val context: Context) 
         networkCall: suspend () -> Response<T>,
         saveToCache: suspend (R) -> Unit = {},
         transformResponse: (T) -> R
-    ): ApiResult<R> {
+    ): HttpResult<R> {
         return if (isNetworkAvailable()) {
             try {
                 val response = networkCall()
-                if (!response.isSuccessful) ApiResult.HttpError(response.code(), response.message())
+                if (!response.isSuccessful) HttpResult.HttpError(
+                    response.code(),
+                    response.message()
+                )
                 response.body()?.let { data ->
                     val transformedData = transformResponse(data)
                     saveToCache(transformedData)
-                    ApiResult.Success(transformedData)
-                } ?: ApiResult.NoData("No data") // TODO: return cache data instead of no data?
+                    HttpResult.Success(transformedData)
+                } ?: HttpResult.NoData("No data") // TODO: return cache data instead of no data?
             } catch (e: Exception) {
-                ApiResult.NetworkError("Error fetching data: ${e.message}")
+                HttpResult.NetworkError("Error fetching data: ${e.message}")
             }
         } else {
-            ApiResult.NetworkError("No network connection")
+            HttpResult.NetworkError("No network connection")
         }
     }
 
@@ -70,39 +76,45 @@ abstract class BaseRepository(@ApplicationContext private val context: Context) 
         networkCall: suspend () -> Response<T>,
         updateCache: suspend (R) -> Unit = {},
         transformResponse: (T) -> R
-    ): ApiResult<R> {
+    ): HttpResult<R> {
         return if (isNetworkAvailable()) {
             try {
                 val response = networkCall()
-                if (!response.isSuccessful) ApiResult.HttpError(response.code(), response.message())
+                if (!response.isSuccessful) HttpResult.HttpError(
+                    response.code(),
+                    response.message()
+                )
                 response.body()?.let { data ->
                     val transformedData = transformResponse(data)
                     updateCache(transformedData)
-                    ApiResult.Success(transformedData)
-                } ?: ApiResult.NoData("No data") // TODO: return cache data instead of no data?
+                    HttpResult.Success(transformedData)
+                } ?: HttpResult.NoData("No data") // TODO: return cache data instead of no data?
             } catch (e: Exception) {
-                ApiResult.NetworkError("Error fetching data: ${e.message}")
+                HttpResult.NetworkError("Error fetching data: ${e.message}")
             }
         } else {
-            ApiResult.NetworkError("No network connection")
+            HttpResult.NetworkError("No network connection")
         }
     }
 
     protected suspend fun <T> deleteData(
         networkCall: suspend () -> Response<T>,
         deleteFromCache: suspend () -> Unit = {}
-    ): ApiResult<Unit> {
+    ): HttpResult<Unit> {
         return if (isNetworkAvailable()) {
             try {
                 val response = networkCall()
-                if (!response.isSuccessful) ApiResult.HttpError(response.code(), response.message())
+                if (!response.isSuccessful) HttpResult.HttpError(
+                    response.code(),
+                    response.message()
+                )
                 deleteFromCache()
-                ApiResult.Success(Unit)
+                HttpResult.Success(Unit)
             } catch (e: Exception) {
-                ApiResult.NetworkError("Error deleting data: ${e.message}")
+                HttpResult.NetworkError("Error deleting data: ${e.message}")
             }
         } else {
-            ApiResult.NetworkError("No network connection")
+            HttpResult.NetworkError("No network connection")
         }
     }
 }
