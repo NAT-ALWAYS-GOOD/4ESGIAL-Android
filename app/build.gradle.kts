@@ -64,6 +64,12 @@ dependencies {
     runtimeOnly(libs.androidx.lifecycle.viewmodel.ktx)
     runtimeOnly(libs.androidx.lifecycle.livedata.ktx)
 
+    // https://mvnrepository.com/artifact/androidx.security/security-crypto
+    implementation(libs.androidx.security.crypto)
+
+    // Logging interceptor
+    implementation (libs.logging.interceptor)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
