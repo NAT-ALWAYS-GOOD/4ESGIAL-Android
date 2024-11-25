@@ -19,8 +19,8 @@ abstract class HttpClient(@ApplicationContext private val context: Context) {
 
     protected suspend fun <T, R> fetchData(
         networkCall: suspend () -> Response<T>,
-        cacheCall: suspend () -> R?,
-        saveToCache: suspend (R) -> Unit,
+        cacheCall: suspend () -> R? = { null },
+        saveToCache: suspend (R) -> Unit = {},
         transformResponse: (T) -> R
     ): HttpResult<R> {
         return if (isNetworkAvailable()) {
