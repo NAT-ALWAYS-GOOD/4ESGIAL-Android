@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">NAT Cine Android</string>
     <string name="movie_poster_default_content_description">Movie Poster</string>
+    <string name="release_date_label">Release Date</string>
 </resources>
