@@ -9,6 +9,9 @@
 
         <item name="colorSurface">@color/darkGrey</item>
         <item name="colorOnSurface">@color/white</item>
+
+        <item name="colorTertiary">@color/lightGrey70</item>
+        <item name="colorOnTertiary">@color/white</item>
     </style>
 
     <style name="Base.Theme.NATCineAndroid.Dark" parent="Theme.Material3.DayNight.NoActionBar">

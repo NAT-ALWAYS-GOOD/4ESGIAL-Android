@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF161621</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="black">#161621</color>
+    <color name="white">#FFFFFF</color>
 
-    <color name="red">#FFF74346</color>
-    <color name="orange">#FFF18F01</color>
-    <color name="purple">#FF4C4F90</color>
-    <color name="lightPurple">#FF7A7DB9</color>
+    <color name="red">#F74346</color>
+    <color name="orange">#F18F01</color>
+    <color name="purple">#4C4F90</color>
+    <color name="lightPurple">#7A7DB9</color>
     <color name="darkGrey">#2B2B38</color>
-    <color name="grey">#FF4A4B56</color>
-    <color name="lightGrey">#FFCBCBCB</color>
+    <color name="grey">#4A4B56</color>
+    <color name="lightGrey">#CBCBCB</color>
+    <color name="lightGrey50">#7FCBCBCB</color>
+    <color name="lightGrey70">#B3CBCBCB</color>
 </resources>
