@@ -18,5 +18,7 @@ data class MovieResponseDTO(
     @SerializedName("isActive")
     val isActive: Boolean,
     @SerializedName("trailerYoutubeId")
-    val trailerYoutubeId: String
+    val trailerYoutubeId: String,
+    @SerializedName("imageUrl")
+    val imageUrl: String
 )
