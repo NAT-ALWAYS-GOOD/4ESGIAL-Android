@@ -47,6 +47,9 @@ android {
 
 dependencies {
 
+    // OkHttp
+    implementation(libs.okhttp)
+
     // Retrofit et Gson
     implementation(libs.retrofit)
     implementation(libs.converter.gson)

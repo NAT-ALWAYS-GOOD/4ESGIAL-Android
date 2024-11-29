@@ -5,25 +5,20 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import dagger.hilt.android.qualifiers.ApplicationContext
 import retrofit2.Response
+import javax.inject.Inject
+import javax.inject.Singleton
 
-abstract class HttpClient(@ApplicationContext private val context: Context) {
-
-    private val connectivityManager =
-        context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-
-    private fun isNetworkAvailable(): Boolean {
-        val network = connectivityManager.activeNetwork
-        val capabilities = connectivityManager.getNetworkCapabilities(network)
-        return capabilities != null && capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-    }
-
-    protected suspend fun <T, R> fetchData(
+@Singleton
+class HttpClient @Inject constructor(
+    private val networkHelper: NetworkHelper
+) {
+    suspend fun <T, R> fetchData(
         networkCall: suspend () -> Response<T>,
         cacheCall: suspend () -> R? = { null },
         saveToCache: suspend (R) -> Unit = {},
         transformResponse: (T) -> R
     ): HttpResult<R> {
-        return if (isNetworkAvailable()) {
+        return if (networkHelper.isNetworkAvailable()) {
             try {
                 val response = networkCall()
                 if (!response.isSuccessful) HttpResult.HttpError(
@@ -47,12 +42,12 @@ abstract class HttpClient(@ApplicationContext private val context: Context) {
         }
     }
 
-    protected suspend fun <T, R> createData(
+    suspend fun <T, R> createData(
         networkCall: suspend () -> Response<T>,
         saveToCache: suspend (R) -> Unit = {},
         transformResponse: (T) -> R
     ): HttpResult<R> {
-        return if (isNetworkAvailable()) {
+        return if (networkHelper.isNetworkAvailable()) {
             try {
                 val response = networkCall()
                 if (!response.isSuccessful) HttpResult.HttpError(
@@ -72,12 +67,12 @@ abstract class HttpClient(@ApplicationContext private val context: Context) {
         }
     }
 
-    protected suspend fun <T, R> updateData(
+    suspend fun <T, R> updateData(
         networkCall: suspend () -> Response<T>,
         updateCache: suspend (R) -> Unit = {},
         transformResponse: (T) -> R
     ): HttpResult<R> {
-        return if (isNetworkAvailable()) {
+        return if (networkHelper.isNetworkAvailable()) {
             try {
                 val response = networkCall()
                 if (!response.isSuccessful) HttpResult.HttpError(
@@ -97,11 +92,11 @@ abstract class HttpClient(@ApplicationContext private val context: Context) {
         }
     }
 
-    protected suspend fun <T> deleteData(
+    suspend fun <T> deleteData(
         networkCall: suspend () -> Response<T>,
         deleteFromCache: suspend () -> Unit = {}
     ): HttpResult<Unit> {
-        return if (isNetworkAvailable()) {
+        return if (networkHelper.isNetworkAvailable()) {
             try {
                 val response = networkCall()
                 if (!response.isSuccessful) HttpResult.HttpError(
