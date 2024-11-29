@@ -4,7 +4,8 @@ package com.nat.cineandroid.core.api.nat.dto.session
 import com.google.gson.annotations.SerializedName
 import com.nat.cineandroid.core.api.nat.dto.cinemaRoom.CinemaRoomResponseDTO
 import com.nat.cineandroid.core.api.nat.dto.movie.MovieResponseDTO
-import java.time.Instant
+import com.nat.cineandroid.data.session.SeatEntity
+import com.nat.cineandroid.data.session.SessionEntity
 
 data class SessionResponseDTO(
     @SerializedName("id")
@@ -14,9 +15,27 @@ data class SessionResponseDTO(
     @SerializedName("room")
     val room: CinemaRoomResponseDTO,
     @SerializedName("startTime")
-    val startTime: Instant,
+    val startTime: String,
     @SerializedName("endTime")
-    val endTime: Instant,
+    val endTime: String,
     @SerializedName("seats")
     val seats: List<SeatResponseDTO>
-)
+) {
+    fun toSessionEntity(): SessionEntity =
+        SessionEntity(
+            id = id,
+            startTime = java.time.Instant.parse(startTime),
+            endTime = java.time.Instant.parse(endTime),
+            movieId = movie.id,
+            roomId = room.id
+        )
+
+    fun toSeatEntities(): List<SeatEntity> =
+        seats.map { it ->
+            SeatEntity(
+                seatNumber = it.seatNumber,
+                sessionId = id,
+                isReserved = it.reserved
+            )
+        }
+}

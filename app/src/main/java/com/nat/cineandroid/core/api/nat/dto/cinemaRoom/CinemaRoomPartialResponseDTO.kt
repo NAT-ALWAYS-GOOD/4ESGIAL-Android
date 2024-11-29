@@ -2,6 +2,7 @@ package com.nat.cineandroid.core.api.nat.dto.cinemaRoom
 
 
 import com.google.gson.annotations.SerializedName
+import com.nat.cineandroid.data.cinemaRoom.CinemaRoomEntity
 
 data class CinemaRoomPartialResponseDTO(
     @SerializedName("id")
@@ -16,4 +17,14 @@ data class CinemaRoomPartialResponseDTO(
     val capacity: Int,
     @SerializedName("accessibility")
     val accessibility: Boolean
-)
+) {
+    fun toCinemaRoomEntity(): CinemaRoomEntity =
+        CinemaRoomEntity(
+            id = id,
+            name = name,
+            description = description,
+            type = type,
+            capacity = capacity,
+            isAccessible = accessibility
+        )
+}

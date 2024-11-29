@@ -4,6 +4,7 @@ package com.nat.cineandroid.core.api.nat.dto.user
 import com.google.gson.annotations.SerializedName
 import com.nat.cineandroid.core.api.nat.dto.session.ReservationPartialResponseDTO
 import com.nat.cineandroid.core.api.nat.dto.theater.TheaterResponseDTO
+import com.nat.cineandroid.data.user.UserEntity
 
 data class UserResponseDTO(
     @SerializedName("id")
@@ -18,4 +19,12 @@ data class UserResponseDTO(
     val reservations: List<ReservationPartialResponseDTO>,
     @SerializedName("favoriteTheater")
     val favoriteTheater: TheaterResponseDTO
-)
+) {
+    fun toUserEntity(): UserEntity =
+        UserEntity(
+            id = id,
+            username = username,
+            isActive = isActive,
+            favoriteTheaterId = favoriteTheater.id
+        )
+}

@@ -2,6 +2,7 @@ package com.nat.cineandroid.core.api.nat.dto.theater
 
 
 import com.google.gson.annotations.SerializedName
+import com.nat.cineandroid.data.theater.TheaterEntity
 
 data class TheaterResponseDTO(
     @SerializedName("id")
@@ -24,4 +25,18 @@ data class TheaterResponseDTO(
     val latitude: String,
     @SerializedName("longitude")
     val longitude: String
-)
+) {
+    fun toTheaterEntity(): TheaterEntity =
+        TheaterEntity(
+            id = id,
+            name = name,
+            description = description,
+            streetName = streetName,
+            streetNumber = streetNumber,
+            postalCode = postalCode,
+            city = city,
+            country = country,
+            latitude = latitude,
+            longitude = longitude
+        )
+}
