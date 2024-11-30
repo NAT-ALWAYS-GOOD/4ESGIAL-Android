@@ -1,9 +1,5 @@
 package com.nat.cineandroid.core.api
 
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
-import dagger.hilt.android.qualifiers.ApplicationContext
 import retrofit2.Response
 import javax.inject.Inject
 import javax.inject.Singleton

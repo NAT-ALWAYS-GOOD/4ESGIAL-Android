@@ -1,4 +1,4 @@
-package com.nat.cineandroid.core.api.nat
+package com.nat.cineandroid.core.api.nat.service
 
 interface UserService {
 /*    @GET("users/{userId}")
