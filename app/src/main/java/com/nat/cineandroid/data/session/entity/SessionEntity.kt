@@ -1,11 +1,11 @@
-package com.nat.cineandroid.data.session
+package com.nat.cineandroid.data.session.entity
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import com.nat.cineandroid.data.cinemaRoom.CinemaRoomEntity
-import com.nat.cineandroid.data.movie.MovieScheduleEntity
+import com.nat.cineandroid.data.cinemaRoom.entity.CinemaRoomEntity
+import com.nat.cineandroid.data.movie.entity.MovieScheduleEntity
 import java.time.Instant
 
 @Entity(

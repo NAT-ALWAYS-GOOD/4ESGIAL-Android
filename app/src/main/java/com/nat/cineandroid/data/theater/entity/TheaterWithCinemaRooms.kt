@@ -1,8 +1,8 @@
-package com.nat.cineandroid.data.theater
+package com.nat.cineandroid.data.theater.entity
 
 import androidx.room.Embedded
 import androidx.room.Relation
-import com.nat.cineandroid.data.cinemaRoom.CinemaRoomEntity
+import com.nat.cineandroid.data.cinemaRoom.entity.CinemaRoomEntity
 
 data class TheaterWithCinemaRooms(
     @Embedded val theater: TheaterEntity,

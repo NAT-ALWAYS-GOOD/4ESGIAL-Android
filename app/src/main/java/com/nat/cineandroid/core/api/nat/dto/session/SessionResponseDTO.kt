@@ -4,8 +4,8 @@ package com.nat.cineandroid.core.api.nat.dto.session
 import com.google.gson.annotations.SerializedName
 import com.nat.cineandroid.core.api.nat.dto.cinemaRoom.CinemaRoomResponseDTO
 import com.nat.cineandroid.core.api.nat.dto.movie.MovieResponseDTO
-import com.nat.cineandroid.data.session.SeatEntity
-import com.nat.cineandroid.data.session.SessionEntity
+import com.nat.cineandroid.data.session.entity.SeatEntity
+import com.nat.cineandroid.data.session.entity.SessionEntity
 
 data class SessionResponseDTO(
     @SerializedName("id")

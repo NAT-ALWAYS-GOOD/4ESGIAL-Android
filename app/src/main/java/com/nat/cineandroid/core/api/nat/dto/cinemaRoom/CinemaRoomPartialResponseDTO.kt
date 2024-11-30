@@ -2,7 +2,7 @@ package com.nat.cineandroid.core.api.nat.dto.cinemaRoom
 
 
 import com.google.gson.annotations.SerializedName
-import com.nat.cineandroid.data.cinemaRoom.CinemaRoomEntity
+import com.nat.cineandroid.data.cinemaRoom.entity.CinemaRoomEntity
 
 data class CinemaRoomPartialResponseDTO(
     @SerializedName("id")

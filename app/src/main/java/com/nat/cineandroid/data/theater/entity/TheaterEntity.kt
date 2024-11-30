@@ -1,4 +1,4 @@
-package com.nat.cineandroid.data.theater
+package com.nat.cineandroid.data.theater.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

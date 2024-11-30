@@ -4,7 +4,7 @@ package com.nat.cineandroid.core.api.nat.dto.user
 import com.google.gson.annotations.SerializedName
 import com.nat.cineandroid.core.api.nat.dto.session.ReservationPartialResponseDTO
 import com.nat.cineandroid.core.api.nat.dto.theater.TheaterResponseDTO
-import com.nat.cineandroid.data.user.UserEntity
+import com.nat.cineandroid.data.user.entity.UserEntity
 
 data class UserResponseDTO(
     @SerializedName("id")

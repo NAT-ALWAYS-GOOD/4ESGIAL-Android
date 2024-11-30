@@ -1,6 +1,5 @@
-package com.nat.cineandroid.data.movie
+package com.nat.cineandroid.data.movie.entity
 
-import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index

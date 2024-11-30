@@ -1,10 +1,10 @@
-package com.nat.cineandroid.data.user
+package com.nat.cineandroid.data.user.entity
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import com.nat.cineandroid.data.theater.TheaterEntity
+import com.nat.cineandroid.data.theater.entity.TheaterEntity
 
 @Entity(
     tableName = "user",

@@ -1,4 +1,4 @@
-package com.nat.cineandroid.data.session
+package com.nat.cineandroid.data.session.entity
 
 import androidx.room.Entity
 import androidx.room.ForeignKey

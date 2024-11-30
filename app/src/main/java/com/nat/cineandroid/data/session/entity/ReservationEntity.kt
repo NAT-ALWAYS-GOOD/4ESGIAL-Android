@@ -1,6 +1,5 @@
-package com.nat.cineandroid.data.session
+package com.nat.cineandroid.data.session.entity
 
-import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index

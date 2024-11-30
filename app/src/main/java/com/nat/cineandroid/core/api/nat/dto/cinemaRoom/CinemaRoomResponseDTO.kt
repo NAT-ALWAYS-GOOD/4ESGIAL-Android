@@ -3,7 +3,7 @@ package com.nat.cineandroid.core.api.nat.dto.cinemaRoom
 
 import com.google.gson.annotations.SerializedName
 import com.nat.cineandroid.core.api.nat.dto.theater.TheaterResponseDTO
-import com.nat.cineandroid.data.cinemaRoom.CinemaRoomEntity
+import com.nat.cineandroid.data.cinemaRoom.entity.CinemaRoomEntity
 
 data class CinemaRoomResponseDTO(
     @SerializedName("id")
