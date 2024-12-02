@@ -18,13 +18,13 @@ data class UserResponseDTO(
     @SerializedName("reservations")
     val reservations: List<ReservationPartialResponseDTO>,
     @SerializedName("favoriteTheater")
-    val favoriteTheater: TheaterResponseDTO
+    val favoriteTheater: TheaterResponseDTO?
 ) {
     fun toUserEntity(): UserEntity =
         UserEntity(
             id = id,
             username = username,
             isActive = isActive,
-            favoriteTheaterId = favoriteTheater.id
+            favoriteTheaterId = favoriteTheater?.id
         )
 }
