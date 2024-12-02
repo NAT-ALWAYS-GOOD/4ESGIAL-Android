@@ -14,16 +14,16 @@
         <item name="colorOnTertiary">@color/white</item>
     </style>
 
-    <style name="Base.Theme.NATCineAndroid.Dark" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/purple</item>
-        <item name="colorOnPrimary">@color/white</item>
-
-        <item name="colorSecondary">@color/grey</item>
-        <item name="colorOnSecondary">@color/white</item>
-
-        <item name="colorSurface">@color/darkGrey</item>
-        <item name="colorOnSurface">@color/white</item>
+    <style name="Base.Theme.NATCineAndroid.ActiveItem">
+        <item name="android:background">@color/transparent</item>
+        <item name="android:textColor">@color/red</item>
+        <item name="iconTint">@color/red</item>
     </style>
 
-    <style name="Theme.NATCineAndroid" parent="Base.Theme.NATCineAndroid" />
+    <style name="Base.Theme.NATCineAndroid.InactiveItem">
+        <item name="android:background">@color/transparent</item>
+        <item name="android:textColor">@color/grey</item>
+        <item name="iconTint">@color/grey</item>
+    </style>
+
 </resources>
