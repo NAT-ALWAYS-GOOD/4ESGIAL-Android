@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId = "com.nat.cineandroid"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -46,6 +46,9 @@ android {
 }
 
 dependencies {
+
+    // OkHttp
+    implementation(libs.okhttp)
 
     // Retrofit et Gson
     implementation(libs.retrofit)

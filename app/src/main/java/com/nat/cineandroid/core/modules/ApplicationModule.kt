@@ -5,7 +5,6 @@ import android.util.Log
 import androidx.room.Room
 import com.nat.cineandroid.BuildConfig
 import com.nat.cineandroid.core.api.AuthInterceptor
-import com.nat.cineandroid.core.api.JwtTokenProvider
 import com.nat.cineandroid.core.api.nat.NATCinemasAPI
 import com.nat.cineandroid.core.cache.ApplicationCache
 import dagger.Module
@@ -26,11 +25,6 @@ object ApplicationModule {
     @Provides
     @Singleton
     fun provideBaseUrl() = BuildConfig.BASE_URL
-
-    @Provides
-    @Singleton
-    fun provideAuthInterceptor(jwtTokenProvider: JwtTokenProvider): AuthInterceptor =
-        AuthInterceptor(jwtTokenProvider)
 
     @Provides
     @Singleton
