@@ -6,4 +6,6 @@
     <string name="theater_search_description">Search theaters</string>
     <string name="leading_icon_content_description">Leading Icon</string>
     <string name="trailing_icon_content_description">Trailing Icon</string>
+    <string name="chevron_right">chevron_right</string>
+    <string name="favorite_cinema">Favorite cinema</string>
 </resources>
