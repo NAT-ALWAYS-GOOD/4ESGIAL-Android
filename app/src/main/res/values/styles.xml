@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="buttonPrimary" parent="TextAppearance.AppCompat.Widget.Button">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">60dp</item>
@@ -9,4 +10,14 @@
         <item name="android:backgroundTint">?colorPrimary</item>
         <item name="android:textColor">?colorOnPrimary</item>
     </style>
+
+    <style name="bottomBar" parent="Widget.Material3.BottomNavigationView">
+        <item name="android:background">@color/blue</item>
+        <item name="itemTextColor">@color/selector_bottom_nav_item</item>
+        <item name="itemIconTint">@color/selector_bottom_nav_item</item>
+        <item name="itemActiveIndicatorStyle">@color/transparent</item>
+        <item name="itemRippleColor">@color/red20</item>
+        <item name="elevation">0dp</item>
+    </style>
+
 </resources>
