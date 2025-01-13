@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/billboard_tab"
+        android:icon="@drawable/movie_icon"
+        android:title="Billboard" />
+    <item
+        android:id="@+id/coming_soon_tab"
+        android:icon="@drawable/coming_soon_icon"
+        android:title="Coming soon" />
+    <item
+        android:id="@+id/profile_tab"
+        android:icon="@drawable/profile_icon"
+        android:title="Profile" />
+</menu>
