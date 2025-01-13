@@ -63,6 +63,33 @@ class HttpClient @Inject constructor(
         }
     }
 
+    suspend fun <T, R> authenticate(
+        networkCall: suspend () -> Response<T>,
+        saveToken: (T) -> Unit,
+        saveToCache: suspend (R) -> Unit = {},
+        transformResponse: (T) -> R
+    ): HttpResult<R> {
+        return if (networkHelper.isNetworkAvailable()) {
+            try {
+                val response = networkCall()
+                if (!response.isSuccessful) return HttpResult.HttpError(
+                    response.code(),
+                    response.message()
+                )
+                response.body()?.let { data ->
+                    saveToken(data)
+                    val transformedData = transformResponse(data)
+                    saveToCache(transformedData)
+                    HttpResult.Success(transformedData)
+                } ?: HttpResult.NoData("No data")
+            } catch (e: Exception) {
+                HttpResult.NetworkError("Error fetching data: ${e.message}")
+            }
+        } else {
+            HttpResult.NetworkError("No network connection")
+        }
+    }
+
     suspend fun <T, R> updateData(
         networkCall: suspend () -> Response<T>,
         updateCache: suspend (R) -> Unit = {},
