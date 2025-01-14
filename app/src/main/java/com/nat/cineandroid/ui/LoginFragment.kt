@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.nat.cineandroid.databinding.FragmentLoginBinding
@@ -29,6 +31,8 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        hideNavigationBar()
+
         return binding.root
     }
 
@@ -36,7 +40,7 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.loginButton.setOnClickListener {
-            val email = binding.emailEditText.text.toString()
+            val email = binding.usernameEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
 
             if (email.isNotBlank() && password.isNotBlank()) {
@@ -71,5 +75,12 @@ class LoginFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun hideNavigationBar() {
+        val window = requireActivity().window
+        val windowInsetsController =
+            WindowCompat.getInsetsController(window, window.decorView)
+        windowInsetsController.hide(WindowInsetsCompat.Type.navigationBars())
     }
 }

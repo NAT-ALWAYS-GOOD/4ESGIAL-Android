@@ -12,6 +12,8 @@
 
         <item name="colorTertiary">@color/lightGrey70</item>
         <item name="colorOnTertiary">@color/white</item>
+
+        <item name="logo">@drawable/logo</item>
     </style>
 
 </resources>
