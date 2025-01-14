@@ -43,19 +43,16 @@
             style="@style/text"
             android:text="Pas encore de compte ?" />
 
-        <LinearLayout
+
+        <TextView
             android:id="@+id/register_link"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/textLink"
+            android:text="@string/register_link_label"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="16dp"
             android:clickable="true"
-            android:paddingHorizontal="8sp"
-            android:paddingVertical="16sp">
-
-            <TextView
-                style="@style/textLink"
-                android:text="S'inscrire" />
-
-        </LinearLayout>
+            android:focusable="true"
+            />
 
     </LinearLayout>
 

@@ -8,4 +8,5 @@
     <string name="trailing_icon_content_description">Trailing Icon</string>
     <string name="chevron_right">chevron_right</string>
     <string name="favorite_cinema">Favorite cinema</string>
+    <string name="register_link_label"><u>S\'inscrire</u></string>
 </resources>
