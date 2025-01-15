@@ -15,9 +15,10 @@
         android:id="@+id/usernameEditText"
         style="@style/editText"
         android:backgroundTint="?colorOnPrimary"
-        android:hint="Email"
+        android:hint="Nom d'utilisateur"
         android:inputType="textEmailAddress"
-        android:textColorHint="?colorOnPrimary" />
+        android:textColor="?colorOnPrimary"
+        android:textColorHint="?colorTertiary" />
 
     <EditText
         android:id="@+id/passwordEditText"
@@ -25,7 +26,8 @@
         android:backgroundTint="?colorOnPrimary"
         android:hint="Mot de passe"
         android:inputType="textPassword"
-        android:textColorHint="?colorOnPrimary" />
+        android:textColor="?colorOnPrimary"
+        android:textColorHint="?colorTertiary" />
 
     <Button
         android:id="@+id/loginButton"
