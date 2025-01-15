@@ -11,7 +11,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.nat.cineandroid.ui.LoginFragment"
+        android:name="com.nat.cineandroid.ui.user.authentication.login.LoginFragment"
         tools:layout="@layout/fragment_login" />
 
 </navigation>
