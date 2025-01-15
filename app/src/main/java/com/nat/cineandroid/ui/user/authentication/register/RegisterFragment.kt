@@ -1,4 +1,4 @@
-package com.nat.cineandroid.ui.user.authentication.login
+package com.nat.cineandroid.ui.user.authentication.register
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,23 +9,22 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.nat.cineandroid.databinding.FragmentLoginBinding
+import com.nat.cineandroid.databinding.FragmentRegisterBinding
 import com.nat.cineandroid.ui.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class LoginFragment : Fragment() {
-
-    private var _binding: FragmentLoginBinding? = null
+class RegisterFragment : Fragment() {
+    private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: LoginViewModel by viewModels()
+    private val viewModel: RegisterViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        _binding = FragmentRegisterBinding.inflate(inflater, container, false)
         hideNavigationBar()
         return binding.root
     }
@@ -35,18 +34,15 @@ class LoginFragment : Fragment() {
 
         viewModel.state.observe(viewLifecycleOwner) { state ->
             when (state) {
-                is LoginState.Success -> {
-                    Toast.makeText(requireContext(), "Login successful", Toast.LENGTH_SHORT).show()
-                    (activity as MainActivity).navigateToHome()
-                }
+                is RegisterState.Success -> (activity as MainActivity).navigateToHome()
 
-                is LoginState.Error -> Toast.makeText(
+                is RegisterState.Error -> Toast.makeText(
                     requireContext(),
                     state.message,
                     Toast.LENGTH_LONG
                 ).show()
 
-                LoginState.Loading -> Toast.makeText(
+                RegisterState.Loading -> Toast.makeText(
                     requireContext(),
                     "Loading...",
                     Toast.LENGTH_SHORT
@@ -54,21 +50,22 @@ class LoginFragment : Fragment() {
             }
         }
 
-        binding.loginButton.setOnClickListener {
+        binding.registerButton.setOnClickListener {
             val username = binding.usernameEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
 
             if (username.isNotBlank() && password.isNotBlank()) {
-                viewModel.performLogin(username, password)
+                viewModel.performRegister(username, password)
             } else {
                 Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT)
                     .show()
             }
         }
 
-        binding.registerLink.setOnClickListener {
-            (activity as MainActivity).navigateToRegister()
+        binding.loginLink.setOnClickListener {
+            (activity as MainActivity).navigateToLogin()
         }
+
     }
 
     override fun onDestroyView() {

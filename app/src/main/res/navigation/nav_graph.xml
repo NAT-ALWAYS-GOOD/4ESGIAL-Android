@@ -14,4 +14,9 @@
         android:name="com.nat.cineandroid.ui.user.authentication.login.LoginFragment"
         tools:layout="@layout/fragment_login" />
 
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.nat.cineandroid.ui.user.authentication.register.RegisterFragment"
+        tools:layout="@layout/fragment_register" />
+
 </navigation>

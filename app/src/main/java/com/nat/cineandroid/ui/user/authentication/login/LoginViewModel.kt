@@ -11,18 +11,20 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(private val userRepository: UserRepository): ViewModel() {
+class LoginViewModel @Inject constructor(private val userRepository: UserRepository) : ViewModel() {
     private val _state = MutableLiveData<LoginState>()
     val state: LiveData<LoginState> get() = _state
 
     fun performLogin(username: String, password: String) {
         _state.value = LoginState.Loading
 
-        viewModelScope.launch{
+        viewModelScope.launch {
             when (val result = userRepository.login(username, password)) {
                 is HttpResult.Success -> _state.value = LoginState.Success
                 is HttpResult.HttpError -> _state.value = LoginState.Error(result.message)
-                is HttpResult.NetworkError -> _state.value = LoginState.Error("Network error: ${result.message}")
+                is HttpResult.NetworkError -> _state.value =
+                    LoginState.Error("Network error: ${result.message}")
+
                 is HttpResult.NoData -> _state.value = LoginState.Error("No data returned")
             }
         }

@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.loginFragment -> {
+                R.id.loginFragment, R.id.registerFragment -> {
                     bottomNavigationView.visibility = View.GONE
                 }
 
@@ -44,6 +44,14 @@ class MainActivity : AppCompatActivity() {
 
     fun navigateToLogin() {
         navController.navigate(R.id.loginFragment)
+    }
+
+    fun navigateToRegister() {
+        navController.navigate(R.id.registerFragment)
+    }
+
+    fun navigateToHome() {
+        navController.navigate(R.id.homeFragment)
     }
 
     fun navigateBack() {
