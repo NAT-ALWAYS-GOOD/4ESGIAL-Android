@@ -28,7 +28,7 @@
         android:textColorHint="?colorOnPrimary" />
 
     <Button
-        android:id="@+id/login_button"
+        android:id="@+id/loginButton"
         style="@style/buttonWhite"
         android:text="Se connecter" />
 
@@ -45,7 +45,7 @@
 
 
         <TextView
-            android:id="@+id/register_link"
+            android:id="@+id/registerLink"
             style="@style/textLink"
             android:text="@string/register_link_label"
             android:paddingHorizontal="8dp"
