@@ -31,7 +31,30 @@ class RegisterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        observeViewModel()
+        setListeners()
 
+    }
+
+    private fun setListeners() {
+        binding.registerButton.setOnClickListener {
+            val username = binding.usernameEditText.text.toString()
+            val password = binding.passwordEditText.text.toString()
+
+            if (username.isNotBlank() && password.isNotBlank()) {
+                viewModel.performRegister(username, password)
+            } else {
+                Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
+
+        binding.loginLink.setOnClickListener {
+            (activity as MainActivity).navigateToLogin()
+        }
+    }
+
+    private fun observeViewModel() {
         viewModel.state.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is RegisterState.Success -> (activity as MainActivity).navigateToHome()
@@ -49,23 +72,6 @@ class RegisterFragment : Fragment() {
                 ).show()
             }
         }
-
-        binding.registerButton.setOnClickListener {
-            val username = binding.usernameEditText.text.toString()
-            val password = binding.passwordEditText.text.toString()
-
-            if (username.isNotBlank() && password.isNotBlank()) {
-                viewModel.performRegister(username, password)
-            } else {
-                Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT)
-                    .show()
-            }
-        }
-
-        binding.loginLink.setOnClickListener {
-            (activity as MainActivity).navigateToLogin()
-        }
-
     }
 
     override fun onDestroyView() {

@@ -32,7 +32,29 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        observeViewModel()
+        setListeners()
+    }
 
+    private fun setListeners() {
+        binding.loginButton.setOnClickListener {
+            val username = binding.usernameEditText.text.toString()
+            val password = binding.passwordEditText.text.toString()
+
+            if (username.isNotBlank() && password.isNotBlank()) {
+                viewModel.performLogin(username, password)
+            } else {
+                Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
+
+        binding.registerLink.setOnClickListener {
+            (activity as MainActivity).navigateToRegister()
+        }
+    }
+
+    private fun observeViewModel() {
         viewModel.state.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is LoginState.Success -> {
@@ -52,22 +74,6 @@ class LoginFragment : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
-        }
-
-        binding.loginButton.setOnClickListener {
-            val username = binding.usernameEditText.text.toString()
-            val password = binding.passwordEditText.text.toString()
-
-            if (username.isNotBlank() && password.isNotBlank()) {
-                viewModel.performLogin(username, password)
-            } else {
-                Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT)
-                    .show()
-            }
-        }
-
-        binding.registerLink.setOnClickListener {
-            (activity as MainActivity).navigateToRegister()
         }
     }
 
