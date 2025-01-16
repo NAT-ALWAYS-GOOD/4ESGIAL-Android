@@ -22,7 +22,11 @@ class RegisterViewModel @Inject constructor(private val userRepository: UserRepo
         viewModelScope.launch {
             when (val result = userRepository.register(username, password)) {
                 is HttpResult.Success -> _state.value = RegisterState.Success
-                is HttpResult.HttpError -> _state.value = RegisterState.Error(result.message)
+                is HttpResult.HttpError -> _state.value = if (result.code == 409) {
+                    RegisterState.Error("Username already exists")
+                } else {
+                    RegisterState.Error(result.message)
+                }
                 is HttpResult.NetworkError -> _state.value =
                     RegisterState.Error("Network error: ${result.message}")
 

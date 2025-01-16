@@ -21,7 +21,13 @@ class LoginViewModel @Inject constructor(private val userRepository: UserReposit
         viewModelScope.launch {
             when (val result = userRepository.login(username, password)) {
                 is HttpResult.Success -> _state.value = LoginState.Success
-                is HttpResult.HttpError -> _state.value = LoginState.Error(result.message)
+                is HttpResult.HttpError -> {
+                    if (result.code == 404) {
+                        _state.value = LoginState.Error("Invalid username or password")
+                    } else {
+                        _state.value = LoginState.Error(result.message)
+                    }
+                }
                 is HttpResult.NetworkError -> _state.value =
                     LoginState.Error("Network error: ${result.message}")
 
