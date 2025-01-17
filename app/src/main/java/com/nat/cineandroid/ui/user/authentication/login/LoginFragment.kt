@@ -1,6 +1,8 @@
 package com.nat.cineandroid.ui.user.authentication.login
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,6 +36,12 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         observeViewModel()
         setListeners()
+        setTextWatchers()
+    }
+
+    private fun setTextWatchers() {
+        binding.usernameEditText.addTextChangedListener(textWatcher)
+        binding.passwordEditText.addTextChangedListener(textWatcher)
     }
 
     private fun setListeners() {
@@ -75,6 +83,22 @@ class LoginFragment : Fragment() {
                 ).show()
             }
         }
+    }
+
+    private val textWatcher = object : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            val username = binding.usernameEditText.text.toString()
+            val password = binding.passwordEditText.text.toString()
+
+            val isMatching = username.isNotEmpty() &&
+                    password.isNotEmpty()
+
+            binding.loginButton.isEnabled = isMatching
+        }
+
+        override fun afterTextChanged(s: Editable?) {}
     }
 
     override fun onDestroyView() {

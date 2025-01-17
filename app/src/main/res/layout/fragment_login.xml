@@ -32,6 +32,7 @@
     <Button
         android:id="@+id/loginButton"
         style="@style/buttonWhite"
+        android:enabled="false"
         android:text="Se connecter" />
 
     <LinearLayout
