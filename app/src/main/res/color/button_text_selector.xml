@@ -8,5 +8,5 @@
     <!-- Couleur du texte quand le bouton est désactivé -->
     <item
         android:state_enabled="false"
-        android:color="@color/red20" />
+        android:color="?colorTertiary" />
 </selector>
