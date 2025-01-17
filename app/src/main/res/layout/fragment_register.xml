@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Base.Theme.NATCineAndroid"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?colorPrimary"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <ImageView
+        style="@style/logo"
+        android:layout_marginBottom="50dp" />
+
+    <EditText
+        android:id="@+id/usernameEditText"
+        style="@style/editText"
+        android:autofillHints="username"
+        android:backgroundTint="?colorOnPrimary"
+        android:hint="Nom d'utilisateur"
+        android:inputType="textEmailAddress"
+        android:textColor="?colorOnPrimary"
+        android:textColorHint="?colorTertiary" />
+
+    <EditText
+        android:id="@+id/passwordEditText"
+        style="@style/editText"
+        android:autofillHints="password"
+        android:backgroundTint="?colorOnPrimary"
+        android:hint="Mot de passe"
+        android:inputType="textPassword"
+        android:textColor="?colorOnPrimary"
+        android:textColorHint="?colorTertiary" />
+
+    <EditText
+        android:id="@+id/passwordConfirmationEditText"
+        style="@style/editText"
+        android:autofillHints="password"
+        android:backgroundTint="?colorOnPrimary"
+        android:hint="Confirmation mot de passe"
+        android:inputType="textPassword"
+        android:textColor="?colorOnPrimary"
+        android:textColorHint="?colorTertiary" />
+
+    <Button
+        android:id="@+id/registerButton"
+        style="@style/buttonWhite"
+        android:enabled="false"
+        android:text="S'inscrire" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/text"
+            android:text="Vous avez déjà un compte ?" />
+
+
+        <TextView
+            android:id="@+id/loginLink"
+            style="@style/textLink"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="16dp"
+            android:text="@string/login_link_label" />
+
+    </LinearLayout>
+
+</LinearLayout>

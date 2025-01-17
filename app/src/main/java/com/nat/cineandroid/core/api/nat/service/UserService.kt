@@ -1,10 +1,21 @@
 package com.nat.cineandroid.core.api.nat.service
 
-interface UserService {
-/*    @GET("users/{userId}")
-    @Authenticated
-    suspend fun getUser(@Path("userId") userId: Int): Response<UserResponse>
+import com.nat.cineandroid.core.api.nat.dto.user.LoginRequestDTO
+import com.nat.cineandroid.core.api.nat.dto.user.LoginResponseDTO
+import com.nat.cineandroid.core.api.nat.dto.user.RegisterRequestDTO
+import com.nat.cineandroid.core.api.nat.dto.user.RegisterResponseDTO
+import retrofit2.Response
+import retrofit2.http.Body
+import retrofit2.http.POST
 
+interface UserService {
+    /*    @GET("users/{userId}")
+        @Authenticated
+        suspend fun getUser(@Path("userId") userId: Int): Response<UserResponse>
+    */
     @POST("users/login")
-    suspend fun login(@Body loginRequest: LoginRequest): Response<LoginResponse>*/
+    suspend fun login(@Body loginRequest: LoginRequestDTO): Response<LoginResponseDTO>
+
+    @POST("users/signup")
+    suspend fun register(@Body registerRequest: RegisterRequestDTO): Response<RegisterResponseDTO>
 }
