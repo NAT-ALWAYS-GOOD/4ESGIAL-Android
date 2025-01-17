@@ -31,9 +31,20 @@
         android:textColor="?colorOnPrimary"
         android:textColorHint="?colorTertiary" />
 
+    <EditText
+        android:id="@+id/passwordConfirmationEditText"
+        style="@style/editText"
+        android:autofillHints="password"
+        android:backgroundTint="?colorOnPrimary"
+        android:hint="Confirmation mot de passe"
+        android:inputType="textPassword"
+        android:textColor="?colorOnPrimary"
+        android:textColorHint="?colorTertiary" />
+
     <Button
         android:id="@+id/registerButton"
         style="@style/buttonWhite"
+        android:enabled="false"
         android:text="S'inscrire" />
 
     <LinearLayout
@@ -51,12 +62,11 @@
         <TextView
             android:id="@+id/loginLink"
             style="@style/textLink"
-            android:text="@string/login_link_label"
-            android:paddingHorizontal="8dp"
-            android:paddingVertical="16dp"
             android:clickable="true"
             android:focusable="true"
-            />
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="16dp"
+            android:text="@string/login_link_label" />
 
     </LinearLayout>
 

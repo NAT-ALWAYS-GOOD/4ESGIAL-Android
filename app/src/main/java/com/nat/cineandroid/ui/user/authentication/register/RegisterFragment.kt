@@ -1,6 +1,8 @@
 package com.nat.cineandroid.ui.user.authentication.register
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,18 +33,34 @@ class RegisterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         observeViewModel()
         setListeners()
+        setTextWatchers()
+    }
 
+    private fun setTextWatchers() {
+        binding.usernameEditText.addTextChangedListener(textWatcher)
+        binding.passwordEditText.addTextChangedListener(textWatcher)
+        binding.passwordConfirmationEditText.addTextChangedListener(textWatcher)
     }
 
     private fun setListeners() {
         binding.registerButton.setOnClickListener {
             val username = binding.usernameEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
+            val confirmPassword = binding.passwordConfirmationEditText.text.toString()
 
-            if (username.isNotBlank() && password.isNotBlank()) {
-                viewModel.performRegister(username, password)
+            if (username.isNotBlank() && password.isNotBlank() && confirmPassword.isNotBlank()) {
+                if (password == confirmPassword) {
+                    viewModel.performRegister(username, password)
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "Passwords are not matching",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             } else {
                 Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT)
                     .show()
@@ -72,6 +90,25 @@ class RegisterFragment : Fragment() {
                 ).show()
             }
         }
+    }
+
+    private val textWatcher = object : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            val username = binding.usernameEditText.text.toString()
+            val password = binding.passwordEditText.text.toString()
+            val confirm = binding.passwordConfirmationEditText.text.toString()
+
+            val isMatching = username.isNotEmpty() &&
+                    password.isNotEmpty() &&
+                    confirm.isNotEmpty() &&
+                    (password == confirm)
+
+            binding.registerButton.isEnabled = isMatching
+        }
+
+        override fun afterTextChanged(s: Editable?) {}
     }
 
     override fun onDestroyView() {

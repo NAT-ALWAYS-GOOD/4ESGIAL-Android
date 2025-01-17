@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Couleur du texte quand le bouton est activé -->
+    <item
+        android:state_enabled="true"
+        android:color="?colorPrimary" />
+
+    <!-- Couleur du texte quand le bouton est désactivé -->
+    <item
+        android:state_enabled="false"
+        android:color="@color/red20" />
+</selector>
