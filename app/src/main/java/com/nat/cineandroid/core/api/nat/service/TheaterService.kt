@@ -1,4 +1,11 @@
 package com.nat.cineandroid.core.api.nat.service
 
+import com.nat.cineandroid.core.api.nat.dto.movie.MovieResponseWithSessionsDTO
+import retrofit2.Response
+import retrofit2.http.GET
+import retrofit2.http.Path
+
 interface TheaterService {
+    @GET("theaters/{theaterId}/movies-sessions")
+    suspend fun getMoviesByTheaterId(@Path("theaterId") theaterId: Int): Response<List<MovieResponseWithSessionsDTO>>
 }
