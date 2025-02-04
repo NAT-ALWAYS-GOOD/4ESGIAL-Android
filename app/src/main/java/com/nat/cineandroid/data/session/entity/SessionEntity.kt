@@ -18,12 +18,12 @@ import java.time.Instant
             childColumns = ["movieId"],
             onDelete = ForeignKey.CASCADE
         ),
-//        ForeignKey(
-//            entity = CinemaRoomEntity::class,
-//            parentColumns = ["id"],
-//            childColumns = ["roomId"],
-//            onDelete = ForeignKey.CASCADE
-//        )
+        ForeignKey(
+            entity = CinemaRoomEntity::class,
+            parentColumns = ["id"],
+            childColumns = ["roomId"],
+            onDelete = ForeignKey.CASCADE
+        )
     ],
     indices = [Index("movieId"), Index("roomId")]
 )

@@ -28,7 +28,7 @@ import com.nat.cineandroid.data.user.entity.UserEntity
         MovieEntity::class,
         CinemaRoomEntity::class
     ],
-    version = 3,
+    version = 4,
     exportSchema = false
 )
 @TypeConverters(Converters::class)

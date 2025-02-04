@@ -5,7 +5,9 @@ import com.nat.cineandroid.core.api.HttpClient
 import com.nat.cineandroid.core.api.HttpResult
 import com.nat.cineandroid.core.api.nat.NATCinemasAPI
 import com.nat.cineandroid.core.api.nat.dto.movie.MovieResponseWithSessionsDTO
+import com.nat.cineandroid.data.cinemaRoom.dao.CinemaRoomDAO
 import com.nat.cineandroid.data.movie.dao.MovieDAO
+import com.nat.cineandroid.data.movie.entity.FullMoviesData
 import com.nat.cineandroid.data.movie.entity.MovieWithSessions
 import com.nat.cineandroid.data.session.dao.SessionDAO
 import javax.inject.Inject
@@ -15,6 +17,7 @@ import javax.inject.Singleton
 class MovieRepository @Inject constructor(
     private val movieDAO: MovieDAO,
     private val sessionDAO: SessionDAO,
+    private val cinemaRoomDAO: CinemaRoomDAO,
     private val apiService: NATCinemasAPI,
     private val httpClient: HttpClient
 ) {
@@ -28,19 +31,37 @@ class MovieRepository @Inject constructor(
             cacheCall = {
                 val cachedMovies = movieDAO.getMoviesByTheaterId(theaterId)
                 Log.d("Repository", "Cache response: $cachedMovies")
-                cachedMovies
+                val cachedCinemaRooms = cinemaRoomDAO.getCinemaRoomsByTheaterId(theaterId)
+                FullMoviesData(
+                    moviesWithSessions = cachedMovies,
+                    cinemaRooms = cachedCinemaRooms
+                )
             },
-            saveToCache = { it.forEach { movieWithSessions ->
+            saveToCache = { fullData: FullMoviesData ->
+                cinemaRoomDAO.upsertRooms(fullData.cinemaRooms)
+                fullData.moviesWithSessions.forEach { movieWithSessions ->
                     movieDAO.upsertMovie(movieWithSessions.movie)
                     sessionDAO.upsertSessions(movieWithSessions.sessions)
-                    Log.d("Repository", "Saved to cache: $movieWithSessions")
                 }
-                Log.d("Repository", "Saved to cache: $it")
+                Log.d("Repository", "Saved data: $fullData")
             },
             transformResponse = { dtoList: List<MovieResponseWithSessionsDTO> ->
-                dtoList.map { it.toEntity() }
-                    .also { Log.d("Repository", "Transformed response: $it") }
+                val moviesWithSessions = dtoList.map { it.toEntity() }
+                val cinemaRooms =
+                    dtoList.flatMap { it.sessions.map { it.room.toCinemaRoomEntity() } }
+                        .distinctBy { it.id }
+                FullMoviesData(
+                    moviesWithSessions,
+                    cinemaRooms
+                )
             }
-        )
+        ).let { result ->
+            when (result) {
+                is HttpResult.Success -> HttpResult.Success(result.data.moviesWithSessions)
+                is HttpResult.HttpError -> HttpResult.HttpError(result.code, result.message)
+                is HttpResult.NetworkError -> HttpResult.NetworkError(result.message)
+                is HttpResult.NoData -> HttpResult.NoData(result.message)
+            }
+        }
     }
 }
