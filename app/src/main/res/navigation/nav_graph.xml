@@ -6,8 +6,25 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.nat.cineandroid.ui.HomeFragment"
-        tools:layout="@layout/fragment_home" />
+        android:name="com.nat.cineandroid.ui.home.HomeFragment"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_movieDetailFragment"
+            app:destination="@id/movieDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/movieDetailFragment"
+        android:name="com.nat.cineandroid.ui.MovieDetailFragment"
+        android:label="MovieDetailFragment"
+        tools:layout="@layout/fragment_movie_detail">
+        <argument
+            android:name="movieId"
+            app:argType="integer" />
+        <argument
+            android:name="theaterId"
+            app:argType="integer" />
+    </fragment>
 
     <fragment
         android:id="@+id/loginFragment"

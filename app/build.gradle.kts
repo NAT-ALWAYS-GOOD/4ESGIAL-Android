@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -74,6 +75,9 @@ dependencies {
     // ViewModel et LiveData
     runtimeOnly(libs.androidx.lifecycle.viewmodel.ktx)
     runtimeOnly(libs.androidx.lifecycle.livedata.ktx)
+
+    // Glide
+    implementation(libs.glide)
 
     // https://mvnrepository.com/artifact/androidx.security/security-crypto
     implementation(libs.androidx.security.crypto)
