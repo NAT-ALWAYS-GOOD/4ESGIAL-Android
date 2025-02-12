@@ -30,4 +30,7 @@ interface MovieDAO {
     @Transaction
     @Upsert
     suspend fun upsertMovie(movie: MovieEntity)
+
+    @Query("SELECT * FROM movie")
+    suspend fun getMovies(): List<MovieEntity>
 }

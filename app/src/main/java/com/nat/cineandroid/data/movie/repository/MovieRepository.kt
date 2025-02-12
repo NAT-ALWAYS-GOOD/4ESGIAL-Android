@@ -43,12 +43,14 @@ class MovieRepository @Inject constructor(
                     movieDAO.upsertMovie(movieWithSessions.movie)
                     sessionDAO.upsertSessions(movieWithSessions.sessions)
                 }
-                Log.d("Repository", "Saved data: $fullData")
+                Log.d("Repository", "Saved movies: ${movieDAO.getMovies()}")
+                Log.d("Repository", "Saved sessions: ${sessionDAO.getSessions()}")
+                Log.d("Repository", "Saved cinema rooms: ${cinemaRoomDAO.getCinemaRoomsByTheaterId(theaterId)}")
             },
             transformResponse = { dtoList: List<MovieResponseWithSessionsDTO> ->
                 val moviesWithSessions = dtoList.map { it.toEntity() }
                 val cinemaRooms =
-                    dtoList.flatMap { it.sessions.map { it.room.toCinemaRoomEntity() } }
+                    dtoList.flatMap { it.sessions.map { it.room.toCinemaRoomEntity(theaterId) } }
                         .distinctBy { it.id }
                 FullMoviesData(
                     moviesWithSessions,
