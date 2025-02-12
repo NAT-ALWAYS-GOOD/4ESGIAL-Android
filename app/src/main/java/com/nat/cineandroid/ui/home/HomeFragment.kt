@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import com.nat.cineandroid.databinding.FragmentHomeBinding
@@ -20,7 +20,7 @@ class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: HomeViewModel by viewModels()
+    private val viewModel: HomeViewModel by activityViewModels()
 
     private lateinit var moviePagerAdapter: MoviePagerAdapter
 
@@ -36,6 +36,11 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // TODO: if nothing is returned, show a message to the user
+
+        binding.favCinemaButton.root.setOnClickListener {
+            val action = HomeFragmentDirections.actionHomeFragmentToMapsFragment()
+            findNavController().navigate(action)
+        }
 
         moviePagerAdapter = MoviePagerAdapter { movieWithSessions ->
             val action =

@@ -1,37 +1,66 @@
 package com.nat.cineandroid.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.nat.cineandroid.R
+import com.nat.cineandroid.data.theater.entity.TheaterEntity
 import com.nat.cineandroid.databinding.FragmentMapsBinding
+import com.nat.cineandroid.ui.home.HomeViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlin.getValue
 
+@AndroidEntryPoint
 class MapsFragment : Fragment() {
 
     private var _binding: FragmentMapsBinding? = null
     private val binding get() = _binding!!
+    private val viewModel: HomeViewModel by activityViewModels()
+    private var googleMapInstance: GoogleMap? = null
 
     private val callback = OnMapReadyCallback { googleMap ->
-        /**
-         * Manipulates the map once available.
-         * This callback is triggered when the map is ready to be used.
-         * This is where we can add markers or lines, add listeners or move the camera.
-         * In this case, we just add a marker near Sydney, Australia.
-         * If Google Play services is not installed on the device, the user will be prompted to
-         * install it inside the SupportMapFragment. This method will only be triggered once the
-         * user has installed Google Play services and returned to the app.
-         */
+        googleMapInstance = googleMap
+        setupMap(googleMap)
+        observeTheaters()
+    }
+
+    private fun setupMap(googleMap: GoogleMap) {
         val eiffelTower = LatLng(48.85838, 2.29453)
-        googleMap.addMarker(MarkerOptions().position(eiffelTower).title("Tour Eiffel"))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(eiffelTower))
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(eiffelTower, 12f))
+    }
+
+    private fun observeTheaters() {
+        viewModel.theaters.observe(viewLifecycleOwner) { theaters ->
+            Log.d("MapsFragment", "Theaters received: $theaters")
+            if (!theaters.isNullOrEmpty()) {
+                addMarkersOnMap(theaters)
+            }
+        }
+    }
+
+    private fun addMarkersOnMap(theaters: List<TheaterEntity>) {
+        googleMapInstance?.let { googleMap ->
+            googleMap.clear()
+
+            theaters.forEach { theater ->
+                val position = LatLng(theater.latitude, theater.longitude)
+                val marker = googleMap.addMarker(
+                    MarkerOptions().position(position).title(theater.name)
+                )
+                marker?.tag = theater.id
+            }
+        }
     }
 
     override fun onCreateView(
