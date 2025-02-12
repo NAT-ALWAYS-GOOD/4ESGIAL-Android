@@ -48,6 +48,16 @@ class HomeFragment : Fragment() {
 
         binding.movieViewPager.adapter = moviePagerAdapter
 
+        viewModel.theaters.observe(viewLifecycleOwner) { theaters ->
+            if (theaters.isNullOrEmpty()) {
+                Log.d("HomeFragment", "No theaters received")
+                viewModel.fetchMoviesWithSessions(theaterId = 1)
+            } else {
+                Log.d("HomeFragment", "Theaters received: ${theaters.size}")
+                viewModel.fetchMoviesWithSessions(theaterId = theaters[0].id)
+            }
+        }
+
         viewModel.moviesWithSessions.observe(viewLifecycleOwner) { moviesWithSession ->
             if (moviesWithSession.isNullOrEmpty()) {
                 Log.d("HomeFragment", "No moviesWithSession received")
@@ -91,7 +101,7 @@ class HomeFragment : Fragment() {
             }
         }
 
-        viewModel.fetchMoviesWithSessions(theaterId = 1)
+        viewModel.fetchTheaters()
     }
 
     override fun onDestroyView() {
