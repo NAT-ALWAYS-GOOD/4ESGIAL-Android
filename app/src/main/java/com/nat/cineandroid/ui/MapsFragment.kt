@@ -27,17 +27,13 @@ class MapsFragment : Fragment() {
     private var _binding: FragmentMapsBinding? = null
     private val binding get() = _binding!!
     private val viewModel: HomeViewModel by activityViewModels()
+    private val locationViewModel: SharedLocationViewModel by activityViewModels()
     private var googleMapInstance: GoogleMap? = null
 
     private val callback = OnMapReadyCallback { googleMap ->
         googleMapInstance = googleMap
-        setupMap(googleMap)
+        observeSelectedTheater()
         observeTheaters()
-    }
-
-    private fun setupMap(googleMap: GoogleMap) {
-        val eiffelTower = LatLng(48.85838, 2.29453)
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(eiffelTower, 12f))
     }
 
     private fun observeTheaters() {
@@ -59,6 +55,15 @@ class MapsFragment : Fragment() {
                     MarkerOptions().position(position).title(theater.name)
                 )
                 marker?.tag = theater.id
+            }
+        }
+    }
+
+    private fun observeSelectedTheater() {
+        locationViewModel.selectedTheater.observe(viewLifecycleOwner) { theater ->
+            theater?.let {
+                val position = LatLng(it.latitude, it.longitude)
+                googleMapInstance?.animateCamera(CameraUpdateFactory.newLatLngZoom(position, 12f))
             }
         }
     }
