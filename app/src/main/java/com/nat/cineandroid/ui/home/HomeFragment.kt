@@ -1,6 +1,8 @@
 package com.nat.cineandroid.ui.home
 
 import android.content.Context
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,11 +10,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import com.nat.cineandroid.databinding.FragmentHomeBinding
+import com.nat.cineandroid.ui.SharedLocationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,6 +26,16 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val viewModel: HomeViewModel by activityViewModels()
+    private val locationViewModel: SharedLocationViewModel by activityViewModels()
+
+    private val requestPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (isGranted) {
+                locationViewModel.requestUserLocation()
+            } else {
+                selectDefaultTheater()
+            }
+        }
 
     private lateinit var moviePagerAdapter: MoviePagerAdapter
 
@@ -36,6 +51,8 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // TODO: if nothing is returned, show a message to the user
+
+        checkLocationPermission()
 
         binding.favCinemaButton.root.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeFragmentToMapsFragment()
@@ -60,6 +77,7 @@ class HomeFragment : Fragment() {
             } else {
                 Log.d("HomeFragment", "Theaters received: ${theaters.size}")
                 viewModel.fetchMoviesWithSessions(theaterId = theaters[0].id)
+                locationViewModel.selectClosestTheater(theaters)
             }
         }
 
@@ -70,6 +88,10 @@ class HomeFragment : Fragment() {
                 Log.d("HomeFragment", "Movies received: ${moviesWithSession.size}")
             }
             moviePagerAdapter.submitList(moviesWithSession)
+        }
+
+        locationViewModel.selectedTheater.observe(viewLifecycleOwner) { theater ->
+            binding.favCinemaButton.cinemaName.text = theater.name
         }
 
         TabLayoutMediator(binding.tabLayout, binding.movieViewPager) { tab, position ->
@@ -108,6 +130,24 @@ class HomeFragment : Fragment() {
 
         viewModel.fetchTheaters()
     }
+
+
+    private fun checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+            == PackageManager.PERMISSION_GRANTED
+        ) {
+            locationViewModel.requestUserLocation()
+        } else {
+            requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+        }
+    }
+
+    private fun selectDefaultTheater() {
+        viewModel.theaters.value?.firstOrNull()?.let {
+            locationViewModel.updateSelectedTheater(it)
+        }
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -52,6 +52,9 @@ android {
 
 dependencies {
 
+    // Location
+    implementation(libs.play.services.location)
+
     // OkHttp
     implementation(libs.okhttp)
 
