@@ -71,14 +71,9 @@ class HomeFragment : Fragment() {
         binding.movieViewPager.adapter = moviePagerAdapter
 
         viewModel.theaters.observe(viewLifecycleOwner) { theaters ->
-            if (theaters.isNullOrEmpty()) {
-                Log.d("HomeFragment", "No theaters received")
-                viewModel.fetchMoviesWithSessions(theaterId = 1)
-            } else {
-                Log.d("HomeFragment", "Theaters received: ${theaters.size}")
-                viewModel.fetchMoviesWithSessions(theaterId = theaters[0].id)
-                locationViewModel.selectClosestTheater(theaters)
-            }
+            Log.d("HomeFragment", "Theaters received: ${theaters.size}")
+            locationViewModel.selectClosestTheater(theaters)
+            viewModel.fetchMoviesWithSessions(theaterId = locationViewModel.selectedTheater.value!!.id)
         }
 
         viewModel.moviesWithSessions.observe(viewLifecycleOwner) { moviesWithSession ->
@@ -98,13 +93,17 @@ class HomeFragment : Fragment() {
             tab.contentDescription = "Film de la page ${position + 1}"
         }.attach()
 
-        val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val imm =
+            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
         binding.searchButton.root.setOnClickListener() {
             binding.searchButton.root.visibility = View.GONE
             binding.searchBarComponent.root.visibility = View.VISIBLE
             binding.searchBarComponent.searchEditText.requestFocus()
-            imm.showSoftInput(binding.searchBarComponent.searchEditText, InputMethodManager.SHOW_IMPLICIT)
+            imm.showSoftInput(
+                binding.searchBarComponent.searchEditText,
+                InputMethodManager.SHOW_IMPLICIT
+            )
         }
 
         binding.root.setOnClickListener {
@@ -118,7 +117,10 @@ class HomeFragment : Fragment() {
                 binding.searchButton.root.visibility = View.VISIBLE
                 binding.searchBarComponent.root.visibility = View.GONE
 
-                imm.hideSoftInputFromWindow(binding.searchBarComponent.searchEditText.windowToken, 0)
+                imm.hideSoftInputFromWindow(
+                    binding.searchBarComponent.searchEditText.windowToken,
+                    0
+                )
             }
         }
 
@@ -133,7 +135,10 @@ class HomeFragment : Fragment() {
 
 
     private fun checkLocationPermission() {
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
             == PackageManager.PERMISSION_GRANTED
         ) {
             locationViewModel.requestUserLocation()
