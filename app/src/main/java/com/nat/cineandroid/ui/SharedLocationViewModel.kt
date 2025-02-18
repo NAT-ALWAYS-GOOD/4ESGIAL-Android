@@ -38,6 +38,8 @@ class SharedLocationViewModel @Inject constructor(application: Application) : An
     }
 
     fun selectClosestTheater(theaters: List<TheaterEntity>) {
+        if (selectedTheater.value != null) return
+
         val location = _userLocation.value
         val closestTheater = location?.let { loc ->
             theaters.minByOrNull { theater ->
@@ -48,7 +50,7 @@ class SharedLocationViewModel @Inject constructor(application: Application) : An
                 loc.distanceTo(theaterLoc)
             }
         }
-        _selectedTheater.value = closestTheater ?: theaters.firstOrNull()
+        _selectedTheater.value = closestTheater ?: theaters.first()
     }
 
     fun updateSelectedTheater(theater: TheaterEntity) {

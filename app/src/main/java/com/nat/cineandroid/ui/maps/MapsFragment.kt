@@ -1,4 +1,4 @@
-package com.nat.cineandroid.ui
+package com.nat.cineandroid.ui.maps
 
 import android.os.Bundle
 import android.util.Log
@@ -17,6 +17,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.nat.cineandroid.R
 import com.nat.cineandroid.data.theater.entity.TheaterEntity
 import com.nat.cineandroid.databinding.FragmentMapsBinding
+import com.nat.cineandroid.ui.SharedLocationViewModel
 import com.nat.cineandroid.ui.home.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.getValue
@@ -34,6 +35,19 @@ class MapsFragment : Fragment() {
         googleMapInstance = googleMap
         observeSelectedTheater()
         observeTheaters()
+
+        googleMapInstance?.setOnMarkerClickListener { marker ->
+            val theaterId = marker.tag
+            val selectedTheater = viewModel.theaters.value?.find { it.id == theaterId }
+            selectedTheater?.let {
+                val position = LatLng(it.latitude, it.longitude)
+                googleMapInstance?.animateCamera(CameraUpdateFactory.newLatLngZoom(position, 12f))
+
+                val bottomSheet = TheaterSelectionBottomSheetFragment.newInstance(it.id)
+                bottomSheet.show(parentFragmentManager, bottomSheet.tag)
+            }
+            true
+        }
     }
 
     private fun observeTheaters() {
@@ -81,7 +95,7 @@ class MapsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.backButton.root.setOnClickListener {
-            val action = MapsFragmentDirections.actionMapsFragmentToHomeFragment()
+            val action = MapsFragmentDirections.Companion.actionMapsFragmentToHomeFragment()
             findNavController().navigate(action)
         }
 

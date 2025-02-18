@@ -70,6 +70,11 @@ class HomeFragment : Fragment() {
 
         binding.movieViewPager.adapter = moviePagerAdapter
 
+        locationViewModel.selectedTheater.observe(viewLifecycleOwner) { theater ->
+            binding.favCinemaButton.cinemaName.text = theater.name
+            viewModel.fetchMoviesWithSessions(theaterId = locationViewModel.selectedTheater.value!!.id)
+        }
+
         viewModel.theaters.observe(viewLifecycleOwner) { theaters ->
             Log.d("HomeFragment", "Theaters received: ${theaters.size}")
             locationViewModel.selectClosestTheater(theaters)
@@ -83,10 +88,6 @@ class HomeFragment : Fragment() {
                 Log.d("HomeFragment", "Movies received: ${moviesWithSession.size}")
             }
             moviePagerAdapter.submitList(moviesWithSession)
-        }
-
-        locationViewModel.selectedTheater.observe(viewLifecycleOwner) { theater ->
-            binding.favCinemaButton.cinemaName.text = theater.name
         }
 
         TabLayoutMediator(binding.tabLayout, binding.movieViewPager) { tab, position ->

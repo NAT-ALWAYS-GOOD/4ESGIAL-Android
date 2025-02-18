@@ -18,7 +18,7 @@
 
     <fragment
         android:id="@+id/mapsFragment"
-        android:name="com.nat.cineandroid.ui.MapsFragment"
+        android:name="com.nat.cineandroid.ui.maps.MapsFragment"
         tools:layout="@layout/fragment_maps">
         <action
             android:id="@+id/action_mapsFragment_to_homeFragment"
