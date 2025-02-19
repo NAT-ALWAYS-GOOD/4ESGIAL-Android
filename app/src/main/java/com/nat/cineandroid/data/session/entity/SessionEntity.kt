@@ -5,6 +5,7 @@ import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.nat.cineandroid.data.cinemaRoom.entity.CinemaRoomEntity
+import com.nat.cineandroid.data.movie.entity.MovieEntity
 import com.nat.cineandroid.data.movie.entity.MovieScheduleEntity
 import java.time.Instant
 
@@ -12,7 +13,7 @@ import java.time.Instant
     tableName = "session",
     foreignKeys = [
         ForeignKey(
-            entity = MovieScheduleEntity::class,
+            entity = MovieEntity::class,
             parentColumns = ["id"],
             childColumns = ["movieId"],
             onDelete = ForeignKey.CASCADE

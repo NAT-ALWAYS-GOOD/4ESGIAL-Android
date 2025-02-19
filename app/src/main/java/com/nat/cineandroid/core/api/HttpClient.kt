@@ -1,5 +1,6 @@
 package com.nat.cineandroid.core.api
 
+import android.util.Log
 import retrofit2.Response
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -27,6 +28,7 @@ class HttpClient @Inject constructor(
                     HttpResult.Success(transformedData)
                 } ?: HttpResult.NoData("No data")
             } catch (e: Exception) {
+                Log.d("HttpClient", "Error fetching data: ${e.message}")
                 val dataFromCache = cacheCall()
                 dataFromCache?.let { HttpResult.Success(it) }
                     ?: HttpResult.NetworkError("Error fetching data: ${e.message}")

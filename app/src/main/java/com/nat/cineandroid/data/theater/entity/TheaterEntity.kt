@@ -13,6 +13,6 @@ data class TheaterEntity(
     val postalCode: String,
     val city: String,
     val country: String,
-    val latitude: String,
-    val longitude: String
+    val latitude: Double,
+    val longitude: Double
 )

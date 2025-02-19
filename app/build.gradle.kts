@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.kotlin.android)
     id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")
+    id("androidx.navigation.safeargs.kotlin")
+    alias(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin)
 }
 
 android {
@@ -50,6 +52,9 @@ android {
 
 dependencies {
 
+    // Location
+    implementation(libs.play.services.location)
+
     // OkHttp
     implementation(libs.okhttp)
 
@@ -64,6 +69,7 @@ dependencies {
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.legacy.support.v4)
     implementation(libs.androidx.recyclerview)
+    implementation(libs.play.services.maps)
     ksp(libs.androidx.room.compiler)
 
     // Hilt
@@ -74,6 +80,9 @@ dependencies {
     // ViewModel et LiveData
     runtimeOnly(libs.androidx.lifecycle.viewmodel.ktx)
     runtimeOnly(libs.androidx.lifecycle.livedata.ktx)
+
+    // Glide
+    implementation(libs.glide)
 
     // https://mvnrepository.com/artifact/androidx.security/security-crypto
     implementation(libs.androidx.security.crypto)

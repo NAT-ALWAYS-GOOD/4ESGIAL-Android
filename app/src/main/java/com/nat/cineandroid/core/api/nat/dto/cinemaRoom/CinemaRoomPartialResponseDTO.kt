@@ -18,13 +18,14 @@ data class CinemaRoomPartialResponseDTO(
     @SerializedName("accessibility")
     val accessibility: Boolean
 ) {
-    fun toCinemaRoomEntity(): CinemaRoomEntity =
+    fun toCinemaRoomEntity(theaterId: Int): CinemaRoomEntity =
         CinemaRoomEntity(
             id = id,
             name = name,
             description = description,
             type = type,
             capacity = capacity,
-            isAccessible = accessibility
+            isAccessible = accessibility,
+            theaterId = theaterId
         )
 }

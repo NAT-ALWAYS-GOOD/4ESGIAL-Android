@@ -17,6 +17,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/cinema_name"
                 style="@style/text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -28,7 +29,7 @@
                 style="@style/text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/favorite_cinema" />
+                android:text="Changer de cinéma" />
 
         </LinearLayout>
 

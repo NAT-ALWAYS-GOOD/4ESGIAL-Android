@@ -22,9 +22,9 @@ data class TheaterResponseDTO(
     @SerializedName("country")
     val country: String,
     @SerializedName("latitude")
-    val latitude: String,
+    val latitude: Double,
     @SerializedName("longitude")
-    val longitude: String
+    val longitude: Double
 ) {
     fun toTheaterEntity(): TheaterEntity =
         TheaterEntity(
