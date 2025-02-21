@@ -29,6 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:paddingHorizontal="8dp"
         android:textSize="18sp"
         android:textColor="?colorPrimary"
         android:textStyle="bold"

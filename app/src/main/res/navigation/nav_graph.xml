@@ -2,10 +2,19 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/billboard_tab">
 
     <fragment
-        android:id="@+id/homeFragment"
+        android:id="@+id/coming_soon_tab"
+        android:name="com.nat.cineandroid.ui.comingSoon.NotReleasedMoviesFragment"
+        tools:layout="@layout/fragment_not_released_movies">
+        <action
+            android:id="@+id/action_homeFragment_to_movieDetailFragment"
+            app:destination="@id/movieDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/billboard_tab"
         android:name="com.nat.cineandroid.ui.home.HomeFragment"
         tools:layout="@layout/fragment_home">
         <action
@@ -22,7 +31,7 @@
         tools:layout="@layout/fragment_maps">
         <action
             android:id="@+id/action_mapsFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/billboard_tab" />
     </fragment>
 
     <fragment

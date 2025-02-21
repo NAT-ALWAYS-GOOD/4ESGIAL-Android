@@ -13,11 +13,13 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.nat.cineandroid.R
+import com.nat.cineandroid.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
 
     private val locationPermissionLauncher = registerForActivityResult(
@@ -26,25 +28,23 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         enableEdgeToEdge()
 
-        // Configuration du NavController
         val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+            supportFragmentManager.findFragmentById(binding.navHostFragment.id) as NavHostFragment
         navController = navHostFragment.navController
-
-        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.navigation)
-        bottomNavigationView.setupWithNavController(navController)
+        binding.navigation.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.loginFragment, R.id.registerFragment -> {
-                    bottomNavigationView.visibility = View.GONE
+                    binding.navigation.visibility = View.GONE
                 }
 
                 else -> {
-                    bottomNavigationView.visibility = View.VISIBLE
+                    binding.navigation.visibility = View.VISIBLE
                 }
             }
         }
@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun navigateToHome() {
-        navController.navigate(R.id.homeFragment)
+        navController.navigate(R.id.billboard_tab)
     }
 
     fun navigateBack() {
