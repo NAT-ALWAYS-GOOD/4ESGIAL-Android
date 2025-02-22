@@ -4,10 +4,12 @@ import android.util.Log
 import com.nat.cineandroid.core.api.HttpClient
 import com.nat.cineandroid.core.api.HttpResult
 import com.nat.cineandroid.core.api.nat.NATCinemasAPI
+import com.nat.cineandroid.core.api.nat.dto.movie.MovieResponseDTO
 import com.nat.cineandroid.core.api.nat.dto.movie.MovieResponseWithSessionsDTO
 import com.nat.cineandroid.data.cinemaRoom.dao.CinemaRoomDAO
 import com.nat.cineandroid.data.movie.dao.MovieDAO
 import com.nat.cineandroid.data.movie.entity.FullMoviesData
+import com.nat.cineandroid.data.movie.entity.MovieEntity
 import com.nat.cineandroid.data.movie.entity.MovieWithSessions
 import com.nat.cineandroid.data.session.dao.SessionDAO
 import javax.inject.Inject
@@ -65,5 +67,27 @@ class MovieRepository @Inject constructor(
                 is HttpResult.NoData -> HttpResult.NoData(result.message)
             }
         }
+    }
+
+    suspend fun getNotReleasedMovies(): HttpResult<List<MovieEntity>> {
+        return httpClient.fetchData(
+            networkCall = {
+                val response = apiService.getMovies(false)
+                Log.d("Repository", "API response: ${response.body()?.toString()}")
+                response
+            },
+            cacheCall = {
+                movieDAO.getNotReleasedMovies()
+            },
+            saveToCache = { movies: List<MovieEntity> ->
+                movies.forEach { movie ->
+                    movieDAO.upsertMovie(movie)
+                }
+                Log.d("Repository", "Saved movies: ${movieDAO.getMovies()}")
+            },
+            transformResponse = { dtoList: List<MovieResponseDTO> ->
+                dtoList.map { it.toMovieEntity() }
+            }
+        )
     }
 }

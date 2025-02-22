@@ -33,4 +33,8 @@ interface MovieDAO {
 
     @Query("SELECT * FROM movie")
     suspend fun getMovies(): List<MovieEntity>
+
+    // get movies not released yet
+    @Query("SELECT * FROM movie WHERE releaseDate > CURRENT_DATE")
+    suspend fun getNotReleasedMovies(): List<MovieEntity>
 }

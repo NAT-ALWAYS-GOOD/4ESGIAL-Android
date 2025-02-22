@@ -3,13 +3,13 @@
     <item
         android:id="@+id/billboard_tab"
         android:icon="@drawable/movie_icon"
-        android:title="Billboard" />
+        android:title="@string/billboard_menu" />
     <item
         android:id="@+id/coming_soon_tab"
         android:icon="@drawable/coming_soon_icon"
-        android:title="Coming soon" />
+        android:title="@string/coming_soon_menu" />
     <item
         android:id="@+id/profile_tab"
         android:icon="@drawable/profile_icon"
-        android:title="Profile" />
+        android:title="@string/profile_menu" />
 </menu>
