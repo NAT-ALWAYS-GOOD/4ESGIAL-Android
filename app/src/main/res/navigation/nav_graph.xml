@@ -9,7 +9,7 @@
         android:name="com.nat.cineandroid.ui.comingSoon.NotReleasedMoviesFragment"
         tools:layout="@layout/fragment_not_released_movies">
         <action
-            android:id="@+id/action_homeFragment_to_movieDetailFragment"
+            android:id="@+id/action_notReleasedMoviesFragment_to_movieDetailFragment"
             app:destination="@id/movieDetailFragment" />
     </fragment>
 
@@ -44,7 +44,8 @@
             app:argType="integer" />
         <argument
             android:name="theaterId"
-            app:argType="integer" />
+            app:argType="integer"
+            android:defaultValue="-1" />
     </fragment>
 
     <fragment

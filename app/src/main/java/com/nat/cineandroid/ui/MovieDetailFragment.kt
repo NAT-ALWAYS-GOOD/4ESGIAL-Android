@@ -31,7 +31,11 @@ class MovieDetailFragment : Fragment() {
         val theaterId = args.theaterId
 
         binding.movieId.text = String.format(movieId.toString())
-        binding.theaterId.text = String.format(theaterId.toString())
+        if (theaterId == -1) {
+            binding.theaterId.text = "Not released yet"
+        } else {
+            binding.theaterId.text = String.format(theaterId.toString())
+        }
     }
 
 }

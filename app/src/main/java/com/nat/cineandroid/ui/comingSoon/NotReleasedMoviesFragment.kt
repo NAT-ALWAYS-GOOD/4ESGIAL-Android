@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.nat.cineandroid.R
 import com.nat.cineandroid.databinding.FragmentNotReleasedMoviesBinding
@@ -32,7 +33,11 @@ class NotReleasedMoviesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        moviesAdapter = MoviesAdapter()
+        moviesAdapter = MoviesAdapter() { movie ->
+            val action = NotReleasedMoviesFragmentDirections
+                .actionNotReleasedMoviesFragmentToMovieDetailFragment(movie.id)
+            findNavController().navigate(action)
+        }
         binding.recyclerNotReleasedMovies.apply {
             adapter = moviesAdapter
             layoutManager = GridLayoutManager(requireContext(), 2)

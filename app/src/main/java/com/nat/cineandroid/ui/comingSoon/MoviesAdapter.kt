@@ -13,7 +13,9 @@ import com.nat.cineandroid.databinding.UnreleasedMovieTileBinding
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
-class MoviesAdapter : ListAdapter<MovieEntity, MoviesAdapter.MovieViewHolder>(DIFF_CALLBACK) {
+class MoviesAdapter(
+    private val onMovieClick: (MovieEntity) -> Unit
+) : ListAdapter<MovieEntity, MoviesAdapter.MovieViewHolder>(DIFF_CALLBACK) {
 
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<MovieEntity>() {
@@ -35,15 +37,20 @@ class MoviesAdapter : ListAdapter<MovieEntity, MoviesAdapter.MovieViewHolder>(DI
                 .load(movie.imageUrl)
                 .into(binding.movieTile.moviePosterImage)
 
-            binding.releaseDateIndicator.releaseDate.text = DateTimeFormatter.ofPattern("dd/MM/yyyy")
-                .withZone(ZoneId.systemDefault())
-                .format(movie.releaseDate)
+            binding.releaseDateIndicator.releaseDate.text =
+                DateTimeFormatter.ofPattern("dd/MM/yyyy")
+                    .withZone(ZoneId.systemDefault())
+                    .format(movie.releaseDate)
 
+            binding.root.setOnClickListener {
+                onMovieClick(movie)
+            }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val binding = UnreleasedMovieTileBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            UnreleasedMovieTileBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MovieViewHolder(binding)
     }
 
