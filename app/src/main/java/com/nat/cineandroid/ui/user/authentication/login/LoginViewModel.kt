@@ -16,8 +16,6 @@ class LoginViewModel @Inject constructor(private val userRepository: UserReposit
     val state: LiveData<LoginState> get() = _state
 
     fun performLogin(username: String, password: String) {
-        _state.value = LoginState.Loading
-
         viewModelScope.launch {
             when (val result = userRepository.login(username, password)) {
                 is HttpResult.Success -> _state.value = LoginState.Success

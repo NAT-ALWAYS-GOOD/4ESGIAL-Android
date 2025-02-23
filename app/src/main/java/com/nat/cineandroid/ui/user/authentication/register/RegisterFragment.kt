@@ -11,8 +11,9 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import com.nat.cineandroid.databinding.FragmentRegisterBinding
-import com.nat.cineandroid.ui.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,6 +22,7 @@ class RegisterFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: RegisterViewModel by viewModels()
+    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,6 +35,8 @@ class RegisterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        navController = findNavController()
 
         observeViewModel()
         setListeners()
@@ -68,25 +72,28 @@ class RegisterFragment : Fragment() {
         }
 
         binding.loginLink.setOnClickListener {
-            (activity as MainActivity).navigateToLogin()
+            val action = RegisterFragmentDirections.actionRegisterFragmentToLoginFragment()
+            navController.navigate(action)
+        }
+
+        binding.backButton.backButton.setOnClickListener {
+            val action = RegisterFragmentDirections.actionRegisterFragmentToHomeFragment()
+            navController.navigate(action)
         }
     }
 
     private fun observeViewModel() {
         viewModel.state.observe(viewLifecycleOwner) { state ->
             when (state) {
-                is RegisterState.Success -> (activity as MainActivity).navigateToHome()
+                is RegisterState.Success -> {
+                    val action = RegisterFragmentDirections.actionRegisterFragmentToProfileFragment()
+                    navController.navigate(action)
+                }
 
                 is RegisterState.Error -> Toast.makeText(
                     requireContext(),
                     state.message,
                     Toast.LENGTH_LONG
-                ).show()
-
-                RegisterState.Loading -> Toast.makeText(
-                    requireContext(),
-                    "Loading...",
-                    Toast.LENGTH_SHORT
                 ).show()
             }
         }
