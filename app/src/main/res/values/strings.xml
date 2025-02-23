@@ -16,4 +16,5 @@
     <string name="billboard_menu">Billboard</string>
     <string name="coming_soon_menu">Coming soon</string>
     <string name="profile_menu">Profile</string>
+    <string name="reservation_qr_code">Reservation QR Code</string>
 </resources>

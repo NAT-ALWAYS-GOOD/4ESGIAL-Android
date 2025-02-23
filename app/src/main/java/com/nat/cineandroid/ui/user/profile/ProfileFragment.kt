@@ -40,6 +40,8 @@ class ProfileFragment : Fragment() {
 
         upcomingAdapter = ReservationAdapter { reservation ->
             Log.d("ProfileFragment", "Reservation clicked: $reservation")
+            val qrCodeDialog = QRCodeDialogFragment.newInstance(reservation.reservation.qrCode)
+            qrCodeDialog.show(childFragmentManager, "qr_code_dialog")
         }
 
         pastAdapter = ReservationAdapter { reservation ->
