@@ -1,0 +1,77 @@
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/Base.Theme.NATCineAndroid"
+    android:layout_width="200dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardElevation="4dp"
+    app:cardBackgroundColor="?colorSecondary">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/theaterName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Theater Name"
+            android:textColor="?colorOnSecondary"
+            android:textSize="14sp"
+            android:layout_marginTop="2dp" />
+
+        <TextView
+            android:id="@+id/roomName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Room Name"
+            android:textColor="?colorOnSecondary"
+            android:textSize="14sp"
+            android:layout_marginTop="2dp" />
+
+        <!-- Numéro de réservation -->
+        <TextView
+            android:id="@+id/reservationNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reservation #12345"
+            android:textColor="?colorOnSecondary"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <!-- Nom du film -->
+        <TextView
+            android:id="@+id/movieName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Movie Title"
+            android:textColor="?colorOnSecondary"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp" />
+
+        <!-- Date de la réservation -->
+        <TextView
+            android:id="@+id/reservationDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date: 01/01/2025"
+            android:textColor="?colorOnSecondary"
+            android:textSize="14sp"
+            android:layout_marginTop="4dp" />
+
+        <!-- Heures de début et de fin -->
+        <TextView
+            android:id="@+id/sessionTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Début: 14:00 - Fin: 16:00"
+            android:textColor="?colorOnSecondary"
+            android:textSize="14sp"
+            android:layout_marginTop="2dp" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
