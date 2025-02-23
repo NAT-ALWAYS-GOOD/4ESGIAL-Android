@@ -11,8 +11,9 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import com.nat.cineandroid.databinding.FragmentLoginBinding
-import com.nat.cineandroid.ui.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,6 +23,7 @@ class LoginFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: LoginViewModel by viewModels()
+    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,6 +36,9 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        navController = findNavController()
+
         observeViewModel()
         setListeners()
         setTextWatchers()
@@ -58,11 +63,13 @@ class LoginFragment : Fragment() {
         }
 
         binding.registerLink.setOnClickListener {
-            (activity as MainActivity).navigateToRegister()
+            val action = LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
+            navController.navigate(action)
         }
 
         binding.backButton.backButton.setOnClickListener {
-            (activity as MainActivity).navigateToHome()
+            val action = LoginFragmentDirections.actionLoginFragmentToHomeFragment()
+            navController.navigate(action)
         }
     }
 
@@ -70,20 +77,14 @@ class LoginFragment : Fragment() {
         viewModel.state.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is LoginState.Success -> {
-                    Toast.makeText(requireContext(), "Login successful", Toast.LENGTH_SHORT).show()
-                    (activity as MainActivity).navigateToHome()
+                    val action = LoginFragmentDirections.actionLoginFragmentToProfileFragment()
+                    navController.navigate(action)
                 }
 
                 is LoginState.Error -> Toast.makeText(
                     requireContext(),
                     state.message,
                     Toast.LENGTH_LONG
-                ).show()
-
-                LoginState.Loading -> Toast.makeText(
-                    requireContext(),
-                    "Loading...",
-                    Toast.LENGTH_SHORT
                 ).show()
             }
         }

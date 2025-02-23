@@ -17,8 +17,6 @@ class RegisterViewModel @Inject constructor(private val userRepository: UserRepo
     val state: LiveData<RegisterState> get() = _state
 
     fun performRegister(username: String, password: String) {
-        _state.value = RegisterState.Loading
-
         viewModelScope.launch {
             when (val result = userRepository.register(username, password)) {
                 is HttpResult.Success -> _state.value = RegisterState.Success
