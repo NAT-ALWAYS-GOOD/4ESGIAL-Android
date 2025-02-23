@@ -60,6 +60,10 @@ class LoginFragment : Fragment() {
         binding.registerLink.setOnClickListener {
             (activity as MainActivity).navigateToRegister()
         }
+
+        binding.backButton.backButton.setOnClickListener {
+            (activity as MainActivity).navigateToHome()
+        }
     }
 
     private fun observeViewModel() {
