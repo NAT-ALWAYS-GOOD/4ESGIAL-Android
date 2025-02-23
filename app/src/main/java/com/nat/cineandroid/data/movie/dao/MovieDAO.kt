@@ -37,4 +37,8 @@ interface MovieDAO {
     // get movies not released yet
     @Query("SELECT * FROM movie WHERE releaseDate > CURRENT_DATE")
     suspend fun getNotReleasedMovies(): List<MovieEntity>
+
+    @Transaction
+    @Upsert
+    suspend fun upsertMovies(movies: List<MovieEntity>)
 }

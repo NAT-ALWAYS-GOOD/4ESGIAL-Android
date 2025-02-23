@@ -12,4 +12,7 @@ interface CinemaRoomDAO {
 
     @Query("SELECT * FROM cinema_room WHERE theaterId = :theaterId")
     suspend fun getCinemaRoomsByTheaterId(theaterId: Int): List<CinemaRoomEntity>
+
+    @Query("SELECT * FROM cinema_room WHERE id IN (:cinemaRoomIds)")
+    suspend fun getCinemaRoomsByIds(cinemaRoomIds: List<Int>): List<CinemaRoomEntity>
 }

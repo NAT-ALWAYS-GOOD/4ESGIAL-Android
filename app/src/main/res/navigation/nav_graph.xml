@@ -5,6 +5,11 @@
     app:startDestination="@id/billboard_tab">
 
     <fragment
+        android:id="@+id/profile_tab"
+        android:name="com.nat.cineandroid.ui.user.profile.ProfileFragment"
+        tools:layout="@layout/fragment_profile" />
+
+    <fragment
         android:id="@+id/coming_soon_tab"
         android:name="com.nat.cineandroid.ui.comingSoon.NotReleasedMoviesFragment"
         tools:layout="@layout/fragment_not_released_movies">

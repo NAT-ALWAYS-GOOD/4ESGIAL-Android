@@ -3,6 +3,7 @@ package com.nat.cineandroid.core.api.nat.dto.session
 
 import com.google.gson.annotations.SerializedName
 import com.nat.cineandroid.data.session.entity.ReservationEntity
+import com.nat.cineandroid.data.theater.entity.TheaterEntity
 
 data class ReservationResponseDTO(
     @SerializedName("reference")
@@ -16,7 +17,9 @@ data class ReservationResponseDTO(
     @SerializedName("userId")
     val userId: Int,
     @SerializedName("session")
-    val session: SessionPartialResponseDTO
+    val session: SessionPartialResponseDTO,
+    @SerializedName("theaterEntity")
+    val theaterEntity: TheaterEntity
 ) {
     fun toReservationEntity(): ReservationEntity =
         ReservationEntity(

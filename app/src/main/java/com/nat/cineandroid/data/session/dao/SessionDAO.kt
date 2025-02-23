@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Upsert
+import com.nat.cineandroid.data.session.entity.ReservationEntity
 import com.nat.cineandroid.data.session.entity.SessionEntity
 
 @Dao
@@ -14,4 +15,10 @@ interface SessionDAO {
 
     @Query("SELECT * FROM session")
     suspend fun getSessions(): List<SessionEntity>
+
+    @Query("SELECT * FROM reservation WHERE userId = :userId")
+    suspend fun getUserReservations(userId: Int): List<ReservationEntity>
+
+    @Upsert
+    suspend fun upsertReservations(reservations: List<ReservationEntity>)
 }
