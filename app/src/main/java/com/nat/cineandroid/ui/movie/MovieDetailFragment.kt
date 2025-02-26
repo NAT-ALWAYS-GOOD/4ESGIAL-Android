@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
@@ -18,8 +18,8 @@ class MovieDetailFragment : Fragment() {
     private var _binding: FragmentMovieDetailBinding? = null
     private val binding get() = _binding!!
     private val args: MovieDetailFragmentArgs by navArgs()
-
-    private val viewModel: MovieDetailViewModel by activityViewModels()
+    private var movieYoutubeId: String? = null
+    private val viewModel: MovieDetailViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,8 +35,16 @@ class MovieDetailFragment : Fragment() {
         val theaterId = args.theaterId
 
         binding.backButton.root.setOnClickListener {
-            val action = MovieDetailFragmentDirections.actionMovieDetailFragmentToBillboardTab()
-            binding.root.findNavController().navigate(action)
+            view.findNavController().popBackStack()
+        }
+
+        binding.trailerButton.isEnabled = false
+
+        binding.trailerButton.setOnClickListener {
+            movieYoutubeId?.let { trailerId ->
+                val trailerDialog = TrailerDialogFragment.newInstance(trailerId)
+                trailerDialog.show(childFragmentManager, "trailer_dialog")
+            }
         }
 
         viewModel.movie.observe(viewLifecycleOwner) { movie ->
@@ -46,6 +54,9 @@ class MovieDetailFragment : Fragment() {
             Glide.with(binding.root)
                 .load(movie.imageUrl)
                 .into(binding.backgroundPoster)
+
+            movieYoutubeId = movie.trailerYoutubeId
+            binding.trailerButton.isEnabled = true
         }
 
 
@@ -59,4 +70,8 @@ class MovieDetailFragment : Fragment() {
         viewModel.fetchMovieById(movieId)
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
