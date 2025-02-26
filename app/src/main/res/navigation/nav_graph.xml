@@ -45,7 +45,7 @@
 
     <fragment
         android:id="@+id/movieDetailFragment"
-        android:name="com.nat.cineandroid.ui.MovieDetailFragment"
+        android:name="com.nat.cineandroid.ui.movie.MovieDetailFragment"
         android:label="MovieDetailFragment"
         tools:layout="@layout/fragment_movie_detail">
         <argument
@@ -55,6 +55,9 @@
             android:name="theaterId"
             android:defaultValue="-1"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_movieDetailFragment_to_billboard_tab"
+            app:destination="@id/billboard_tab" />
     </fragment>
 
     <fragment

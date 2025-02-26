@@ -41,4 +41,7 @@ interface MovieDAO {
     @Transaction
     @Upsert
     suspend fun upsertMovies(movies: List<MovieEntity>)
+
+    @Query("SELECT * FROM movie WHERE id = :movieId")
+    suspend fun getMovieById(movieId: Int): MovieEntity
 }

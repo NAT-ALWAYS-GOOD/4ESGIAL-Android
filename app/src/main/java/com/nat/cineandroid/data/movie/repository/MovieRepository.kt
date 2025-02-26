@@ -90,4 +90,8 @@ class MovieRepository @Inject constructor(
             }
         )
     }
+
+    suspend fun getMovieById(movieId: Int): MovieEntity {
+        return movieDAO.getMovieById(movieId)
+    }
 }

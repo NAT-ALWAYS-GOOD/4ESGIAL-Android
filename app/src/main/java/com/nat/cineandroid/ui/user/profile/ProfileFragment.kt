@@ -8,10 +8,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.nat.cineandroid.core.api.JwtTokenProvider
 import com.nat.cineandroid.databinding.FragmentProfileBinding
-import com.nat.cineandroid.ui.MovieDetailFragmentArgs
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import kotlin.getValue
