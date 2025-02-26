@@ -90,6 +90,9 @@ dependencies {
     // Logging interceptor
     implementation (libs.logging.interceptor)
 
+    // Youtube player
+    implementation (libs.core)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
