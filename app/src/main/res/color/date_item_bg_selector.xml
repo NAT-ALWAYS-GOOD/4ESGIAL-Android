@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Quand l'item est sélectionné, on utilise colorTertiary -->
+    <item android:color="?attr/colorPrimary" android:state_selected="true" />
+    <!-- Sinon, on utilise colorSecondary (ou une autre couleur harmonieuse) -->
+    <item android:color="@color/lightPurple" />
+</selector>

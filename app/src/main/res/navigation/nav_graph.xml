@@ -58,6 +58,18 @@
         <action
             android:id="@+id/action_movieDetailFragment_to_billboard_tab"
             app:destination="@id/billboard_tab" />
+        <action
+            android:id="@+id/action_movieDetailFragment_to_booking_tab"
+            app:destination="@id/booking_tab" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/booking_tab"
+        android:name="com.nat.cineandroid.ui.booking.BookingFragment"
+        tools:layout="@layout/fragment_booking">
+        <action
+            android:id="@+id/action_bookingFragment_to_movieDetailFragment"
+            app:destination="@id/movieDetailFragment" />
     </fragment>
 
     <fragment

@@ -14,6 +14,7 @@
     <color name="lightGrey">#CBCBCB</color>
     <color name="lightGrey50">#80CBCBCB</color>
     <color name="lightGrey70">#B3CBCBCB</color>
+    <color name="green">#00FFA1</color>
 
     <color name="transparent">#00000000</color>
 </resources>
