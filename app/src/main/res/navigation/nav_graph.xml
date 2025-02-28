@@ -67,9 +67,12 @@
         android:id="@+id/booking_tab"
         android:name="com.nat.cineandroid.ui.booking.BookingFragment"
         tools:layout="@layout/fragment_booking">
-        <action
-            android:id="@+id/action_bookingFragment_to_movieDetailFragment"
-            app:destination="@id/movieDetailFragment" />
+        <argument
+            android:name="movieId"
+            app:argType="integer" />
+        <argument
+            android:name="theaterId"
+            app:argType="integer" />
     </fragment>
 
     <fragment

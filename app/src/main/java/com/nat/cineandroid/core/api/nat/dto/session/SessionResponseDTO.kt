@@ -35,7 +35,7 @@ data class SessionResponseDTO(
             SeatEntity(
                 seatNumber = it.seatNumber,
                 sessionId = id,
-                isReserved = it.reserved
+                isReserved = it.isReserved
             )
         }
 }

@@ -6,16 +6,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nat.cineandroid.data.session.entity.SeatEntity
 import com.nat.cineandroid.databinding.FragmentBookingBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class BookingFragment : Fragment() {
     private var _binding: FragmentBookingBinding? = null
     private val binding get() = _binding!!
+    private val viewModel: BookingViewModel by viewModels()
+    private val args: BookingFragmentArgs by navArgs()
 
     private lateinit var timeAdapter: TimeAdapter
     private lateinit var dateAdapter: DateAdapter
@@ -32,14 +37,15 @@ class BookingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Initialisation des adapters avec des callbacks qui loggent et mettent à jour l'état de sélection.
         timeAdapter = TimeAdapter { time ->
             Log.d("SelectSessionFragment", "Time clicked: $time")
+            viewModel.onTimeSelected(time)
             timeAdapter.setSelectedTime(time)
         }
 
         dateAdapter = DateAdapter { date ->
             Log.d("SelectSessionFragment", "Date clicked: $date")
+            viewModel.onDateSelected(date)
             dateAdapter.setSelectedDate(date)
         }
 
@@ -53,11 +59,9 @@ class BookingFragment : Fragment() {
         }
 
         binding.backButton.root.setOnClickListener {
-            val action = BookingFragmentDirections.actionBookingFragmentToMovieDetailFragment()
-            findNavController().navigate(action)
+            findNavController().popBackStack()
         }
 
-        // Configuration des RecyclerViews avec leurs LayoutManagers respectifs.
         binding.timeRecyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.dateRecyclerView.layoutManager =
@@ -67,38 +71,53 @@ class BookingFragment : Fragment() {
             override fun getSpanSize(position: Int): Int {
                 val item = seatAdapter.getItemAt(position)
                 return when (item) {
-                    is SeatItem.SeatData -> 2  // Les sièges prennent 2 spans
-                    is SeatItem.Gap -> 1       // Les gaps prennent 1 span
+                    is SeatItem.SeatData -> 2
+                    is SeatItem.Gap -> 1
                 }
             }
         }
         binding.seatRecyclerView.layoutManager = layoutManager
 
 
-        // Association des adapters aux RecyclerViews.
         binding.timeRecyclerView.adapter = timeAdapter
         binding.dateRecyclerView.adapter = dateAdapter
         binding.seatRecyclerView.adapter = seatAdapter
 
-        // Données en dur pour tester le visuel.
-        val dummyTimes = listOf("6:00 pm", "8:45 pm", "10:00 pm")
-        val dummyDates = listOf("May 1", "May 2", "May 3", "May 4", "May 5")
-        // Création d'une liste de 32 sièges. Pour l'exemple, on marque les sièges dont le numéro est divisible par 5 comme réservés.
-        val dummySeats = (1..50).map { seatNumber ->
-            // Marquer les sièges dont le numéro est divisible par 5 comme réservés (exemple)
-            SeatEntity(
-                seatNumber = seatNumber,
-                sessionId = 1,
-                isReserved = (seatNumber % 5 == 0)
-            )
+        viewModel.selectedSession.observe(viewLifecycleOwner) { sessionWithSeats ->
+            sessionWithSeats?.let {
+                val seatItems = generateSeatItems(it.seats)
+                seatAdapter.submitList(seatItems)
+                seatAdapter.resetSelection()
+            }
         }
-        // Générer la liste de SeatItem avec les gaps
-        val seatItems = generateSeatItems(dummySeats)
-        seatAdapter.submitList(seatItems)
 
-        // Remplissage des adapters avec les données en dur.
-        timeAdapter.submitList(dummyTimes)
-        dateAdapter.submitList(dummyDates)
+        viewModel.sessions.observe(viewLifecycleOwner) { sessions ->
+            Log.d("SelectSessionFragment", "Sessions: $sessions")
+            if (sessions.isNotEmpty()) {
+                val dates = sessions.map { viewModel.extractDate(it.session.startTime) }
+                    .distinct()
+                    .sorted()
+                val times = sessions.map { viewModel.extractTime(it.session.startTime) }
+                    .distinct()
+                    .sorted()
+
+                dateAdapter.submitList(dates)
+            }
+        }
+
+        viewModel.availableTimes.observe(viewLifecycleOwner) { times ->
+            timeAdapter.submitList(times)
+        }
+
+        viewModel.selectedDate.observe(viewLifecycleOwner) { date ->
+            dateAdapter.setSelectedDate(date)
+        }
+
+        viewModel.selectedTime.observe(viewLifecycleOwner) { time ->
+            timeAdapter.setSelectedTime(time)
+        }
+
+        viewModel.loadSessions(movieId = args.movieId, theaterId = args.theaterId)
     }
 
     override fun onDestroyView() {

@@ -115,6 +115,11 @@ class SeatAdapter(
             .filter { selectedSeatNumbers.contains(it.seatNumber) }
     }
 
+    fun resetSelection() {
+        selectedSeatNumbers.clear()
+        notifyDataSetChanged()
+    }
+
     override fun getItemViewType(position: Int): Int {
         return when (items[position]) {
             is SeatItem.SeatData -> TYPE_SEAT
