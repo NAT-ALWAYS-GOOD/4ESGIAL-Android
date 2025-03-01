@@ -59,6 +59,13 @@ class MovieDetailFragment : Fragment() {
             binding.trailerButton.isEnabled = true
         }
 
+        binding.bookButton.setOnClickListener {
+            val action = MovieDetailFragmentDirections.actionMovieDetailFragmentToBookingTab(
+                movieId = movieId,
+                theaterId = theaterId
+            )
+            view.findNavController().navigate(action)
+        }
 
         if (theaterId == -1) {
             binding.bookButton.visibility = View.GONE

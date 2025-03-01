@@ -77,8 +77,7 @@ class LoginFragment : Fragment() {
         viewModel.state.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is LoginState.Success -> {
-                    val action = LoginFragmentDirections.actionLoginFragmentToProfileFragment()
-                    navController.navigate(action)
+                    navController.popBackStack()
                 }
 
                 is LoginState.Error -> Toast.makeText(

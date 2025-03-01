@@ -58,6 +58,52 @@
         <action
             android:id="@+id/action_movieDetailFragment_to_billboard_tab"
             app:destination="@id/billboard_tab" />
+        <action
+            android:id="@+id/action_movieDetailFragment_to_booking_tab"
+            app:destination="@id/booking_tab" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/booking_tab"
+        android:name="com.nat.cineandroid.ui.booking.BookingFragment"
+        tools:layout="@layout/fragment_booking">
+        <argument
+            android:name="movieId"
+            app:argType="integer" />
+        <argument
+            android:name="theaterId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_bookingFragment_to_payment_tab"
+            app:destination="@id/payment_tab" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/payment_tab"
+        android:name="com.nat.cineandroid.ui.payment.PaymentFragment"
+        tools:layout="@layout/fragment_payment">
+        <argument
+            android:name="movieId"
+            app:argType="integer" />
+        <argument
+            android:name="theaterId"
+            app:argType="integer" />
+        <argument
+            android:name="sessionId"
+            app:argType="integer" />
+        <argument
+            android:name="seatIds"
+            app:argType="integer[]"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_paymentFragment_to_profileFragment"
+            app:destination="@id/profile_tab"
+            app:popUpTo="@id/billboard_tab"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_paymentFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
 
     <fragment
