@@ -1,5 +1,6 @@
 package com.nat.cineandroid.data.user.repository
 
+import android.util.Log
 import com.nat.cineandroid.core.api.HttpClient
 import com.nat.cineandroid.core.api.HttpResult
 import com.nat.cineandroid.core.api.JwtTokenProvider
@@ -35,6 +36,21 @@ class UserRepository @Inject constructor(
             saveToken = { jwtTokenProvider.saveToken(it.accessToken) },
             saveToCache = { userEntity -> userDAO.insert(userEntity) },
             transformResponse = { it.user.toUserEntity() }
+        )
+    }
+
+    suspend fun getUser(userId: Int): UserEntity {
+        return userDAO.getUser(userId)
+    }
+
+    suspend fun updateFavoriteTheater(userId: Int, theaterId: Int): HttpResult<Unit> {
+        return httpClient.updateData(
+            networkCall = { apiService.updateFavoriteTheater(theaterId, userId) },
+            updateCache = {
+                val user = userDAO.getUser(userId)
+                val updateUser = user.copy(favoriteTheaterId = theaterId)
+                userDAO.updateUser(updateUser)
+            },
         )
     }
 }

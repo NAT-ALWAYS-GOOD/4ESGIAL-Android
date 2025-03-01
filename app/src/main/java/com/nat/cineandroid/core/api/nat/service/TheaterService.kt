@@ -4,6 +4,7 @@ import com.nat.cineandroid.core.api.nat.dto.movie.MovieResponseWithSessionsDTO
 import com.nat.cineandroid.core.api.nat.dto.theater.TheaterResponseDTO
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface TheaterService {
@@ -12,4 +13,10 @@ interface TheaterService {
 
     @GET("theaters")
     suspend fun getTheaters(): Response<List<TheaterResponseDTO>>
+
+    @PUT("theaters/favorite/{theaterId}/user/{userId}")
+    suspend fun updateFavoriteTheater(
+        @Path("theaterId") theaterId: Int,
+        @Path("userId") userId: Int
+    ): Response<Unit>
 }

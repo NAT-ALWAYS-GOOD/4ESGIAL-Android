@@ -14,19 +14,26 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
+import com.nat.cineandroid.core.api.JwtTokenProvider
 import com.nat.cineandroid.databinding.FragmentHomeBinding
 import com.nat.cineandroid.ui.SharedLocationViewModel
+import com.nat.cineandroid.ui.user.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
+    @Inject
+    lateinit var jwtTokenProvider: JwtTokenProvider
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val viewModel: HomeViewModel by activityViewModels()
     private val locationViewModel: SharedLocationViewModel by activityViewModels()
+    private val userViewModel: UserViewModel by viewModels()
 
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
@@ -54,6 +61,11 @@ class HomeFragment : Fragment() {
 
         checkLocationPermission()
 
+        val userId = isUserConnected()
+        if (userId != null) {
+            userViewModel.fetchUser(userId)
+        }
+
         binding.favCinemaButton.root.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeFragmentToMapsFragment()
             findNavController().navigate(action)
@@ -63,7 +75,7 @@ class HomeFragment : Fragment() {
             val action =
                 HomeFragmentDirections.actionHomeFragmentToMovieDetailFragment(
                     movieWithSessions.movie.id,
-                    theaterId = 1
+                    theaterId = locationViewModel.selectedTheater.value!!.id
                 )
             findNavController().navigate(action)
         }
@@ -72,12 +84,27 @@ class HomeFragment : Fragment() {
 
         locationViewModel.selectedTheater.observe(viewLifecycleOwner) { theater ->
             binding.favCinemaButton.cinemaName.text = theater.name
-            viewModel.fetchMoviesWithSessions(theaterId = locationViewModel.selectedTheater.value!!.id)
+            viewModel.fetchMoviesWithSessions(theaterId = theater.id)
         }
 
         viewModel.theaters.observe(viewLifecycleOwner) { theaters ->
             Log.d("HomeFragment", "Theaters received: ${theaters.size}")
-            locationViewModel.selectClosestTheater(theaters)
+
+            if (locationViewModel.selectedTheater.value == null) {
+                val user = userViewModel.user.value
+
+                if (user != null && user.favoriteTheaterId != null) {
+                    val favoriteTheater = theaters.find { it.id == user.favoriteTheaterId }
+                    if (favoriteTheater != null) {
+                        locationViewModel.updateSelectedTheater(favoriteTheater)
+                    } else {
+                        locationViewModel.selectClosestTheater(theaters)
+                    }
+                } else {
+                    locationViewModel.selectClosestTheater(theaters)
+                }
+            }
+
             viewModel.fetchMoviesWithSessions(theaterId = locationViewModel.selectedTheater.value!!.id)
         }
 
@@ -154,6 +181,17 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun isUserConnected(): Int? {
+        val token = jwtTokenProvider.getToken()
+        if (token.isNullOrEmpty()) {
+            return null
+        }
+        var userClaims = jwtTokenProvider.getUserClaimsFromJwt(token.toString())
+        if (userClaims?.id.isNullOrEmpty() || userClaims.username.isNullOrEmpty()) {
+            return null
+        }
+        return userClaims.id.toInt()
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

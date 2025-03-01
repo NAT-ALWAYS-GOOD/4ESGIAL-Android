@@ -118,6 +118,27 @@ class HttpClient @Inject constructor(
         }
     }
 
+    suspend fun <T> updateData(
+        networkCall: suspend () -> Response<T>,
+        updateCache: suspend () -> Unit = {}
+    ): HttpResult<Unit> {
+        return if (networkHelper.isNetworkAvailable()) {
+            try {
+                val response = networkCall()
+                if (!response.isSuccessful) return HttpResult.HttpError(
+                    response.code(),
+                    response.message()
+                )
+                updateCache()
+                HttpResult.Success(Unit)
+            } catch (e: Exception) {
+                HttpResult.NetworkError("Error fetching data: ${e.message}")
+            }
+        } else {
+            HttpResult.NetworkError("No network connection")
+        }
+    }
+
     suspend fun <T> deleteData(
         networkCall: suspend () -> Response<T>,
         deleteFromCache: suspend () -> Unit = {}

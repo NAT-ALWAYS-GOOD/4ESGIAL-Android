@@ -1,6 +1,7 @@
 package com.nat.cineandroid.ui.maps
 
 import android.os.Bundle
+import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
@@ -8,21 +9,30 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nat.cineandroid.R
+import com.nat.cineandroid.core.api.JwtTokenProvider
 import com.nat.cineandroid.databinding.FragmentTheaterSelectionBottomSheetListDialogItemBinding
 import com.nat.cineandroid.databinding.FragmentTheaterSelectionBottomSheetListDialogBinding
 import com.nat.cineandroid.ui.SharedLocationViewModel
 import com.nat.cineandroid.ui.home.HomeViewModel
+import com.nat.cineandroid.ui.user.UserViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class TheaterSelectionBottomSheetFragment : BottomSheetDialogFragment() {
+    @Inject
+    lateinit var jwtTokenProvider: JwtTokenProvider
 
     private var _binding: FragmentTheaterSelectionBottomSheetListDialogBinding? = null
     private val binding get() = _binding!!
 
     private val homeViewModel: HomeViewModel by activityViewModels()
     private val locationViewModel: SharedLocationViewModel by activityViewModels()
+    private val userViewModel: UserViewModel by viewModels()
 
     private lateinit var theaterAdapter: TheaterAdapter
 
@@ -51,18 +61,31 @@ class TheaterSelectionBottomSheetFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        theaterAdapter = TheaterAdapter { theater ->
-            // Quand l'utilisateur clique sur un item, on met à jour le cinéma sélectionné.
-            locationViewModel.updateSelectedTheater(theater)
+        val userId = isUserConnected()
+        if (userId != null) {
+            userViewModel.fetchUser(userId)
         }
 
-        // Configuration de la RecyclerView
+        theaterAdapter = TheaterAdapter(
+            onItemClicked = { theater ->
+                locationViewModel.updateSelectedTheater(theater)
+            },
+            onFavoriteClick = {
+                userViewModel.user.value?.let { user ->
+                    userViewModel.updateFavoriteTheater(user.id, it.id)
+                }
+            }
+        )
+
+        userViewModel.user.observe(viewLifecycleOwner) { user ->
+            theaterAdapter.setUser(user)
+        }
+
         binding.recyclerViewTheaters.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = theaterAdapter
         }
 
-        // Observer la liste des cinémas depuis HomeViewModel
         homeViewModel.theaters.observe(viewLifecycleOwner) { theaters ->
             theaterAdapter.submitList(theaters)
 
@@ -88,5 +111,17 @@ class TheaterSelectionBottomSheetFragment : BottomSheetDialogFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun isUserConnected(): Int? {
+        val token = jwtTokenProvider.getToken()
+        if (token.isNullOrEmpty()) {
+            return null
+        }
+        var userClaims = jwtTokenProvider.getUserClaimsFromJwt(token.toString())
+        if (userClaims?.id.isNullOrEmpty() || userClaims.username.isNullOrEmpty()) {
+            return null
+        }
+        return userClaims.id.toInt()
     }
 }
