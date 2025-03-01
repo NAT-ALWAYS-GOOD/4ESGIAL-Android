@@ -79,6 +79,7 @@
         android:layout_height="60dp"
         android:layout_marginHorizontal="64dp"
         android:layout_marginBottom="30dp"
+        app:strokeWidth="0dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout

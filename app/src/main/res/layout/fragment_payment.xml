@@ -130,7 +130,8 @@
             app:icon="@drawable/credit_card"
             app:iconSize="40dp"
             app:iconPadding="16dp"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="8dp"
+            app:strokeWidth="0dp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/paypalButton"
@@ -143,7 +144,8 @@
             app:iconGravity="textStart"
             app:iconSize="40dp"
             app:iconPadding="16dp"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="8dp"
+            app:strokeWidth="0dp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/googlePayButton"
@@ -155,7 +157,8 @@
             app:icon="@drawable/google_pay"
             app:iconGravity="textStart"
             app:iconSize="40dp"
-            app:iconPadding="16dp" />
+            app:iconPadding="16dp"
+            app:strokeWidth="0dp" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
