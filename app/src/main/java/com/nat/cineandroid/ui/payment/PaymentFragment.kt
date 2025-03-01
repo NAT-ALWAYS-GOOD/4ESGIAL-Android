@@ -1,27 +1,32 @@
 package com.nat.cineandroid.ui.payment
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
-import com.nat.cineandroid.R
+import com.nat.cineandroid.core.api.JwtTokenProvider
 import com.nat.cineandroid.databinding.FragmentPaymentBinding
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class PaymentFragment : Fragment() {
+    @Inject
+    lateinit var jwtTokenProvider: JwtTokenProvider
 
     private var _binding: FragmentPaymentBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel: PaymentViewModel by viewModels()
     private val args: PaymentFragmentArgs by navArgs()
+
+    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -32,6 +37,14 @@ class PaymentFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        navController = findNavController()
+        val userId = isUserConnected()
+        if (userId == null) {
+            val action = PaymentFragmentDirections.actionPaymentFragmentToLoginFragment()
+            navController.navigate(action)
+            return
+        }
 
         val movieId = args.movieId
         val theaterId = args.theaterId
@@ -45,20 +58,25 @@ class PaymentFragment : Fragment() {
         }
 
         binding.creditCardButton.setOnClickListener {
-            // check if a payment method is selected
+            viewModel.reserveSeats(userId, sessionId, selectedSeats)
         }
 
         binding.paypalButton.setOnClickListener {
-            // check if a payment method is selected
+            viewModel.reserveSeats(userId, sessionId, selectedSeats)
         }
 
         binding.googlePayButton.setOnClickListener {
-            // check if a payment method is selected
+            viewModel.reserveSeats(userId, sessionId, selectedSeats)
+        }
+
+        viewModel.reservation.observe(viewLifecycleOwner) { reservation ->
+            val action = PaymentFragmentDirections.actionPaymentFragmentToProfileFragment()
+            navController.navigate(action)
         }
 
         // Bouton retour
         binding.backButton.root.setOnClickListener {
-            findNavController().popBackStack()
+            navController.popBackStack()
         }
     }
 
@@ -81,5 +99,17 @@ class PaymentFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun isUserConnected(): Int? {
+        val token = jwtTokenProvider.getToken()
+        if (token.isNullOrEmpty()) {
+            return null
+        }
+        var userClaims = jwtTokenProvider.getUserClaimsFromJwt(token.toString())
+        if (userClaims?.id.isNullOrEmpty() || userClaims.username.isNullOrEmpty()) {
+            return null
+        }
+        return userClaims.id.toInt()
     }
 }

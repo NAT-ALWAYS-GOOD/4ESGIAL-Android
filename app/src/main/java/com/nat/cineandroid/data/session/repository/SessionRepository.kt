@@ -4,6 +4,7 @@ import android.util.Log
 import com.nat.cineandroid.core.api.HttpClient
 import com.nat.cineandroid.core.api.HttpResult
 import com.nat.cineandroid.core.api.nat.NATCinemasAPI
+import com.nat.cineandroid.core.api.nat.dto.session.CreateResesrvationRequestDTO
 import com.nat.cineandroid.core.api.nat.dto.session.ReservationResponseDTO
 import com.nat.cineandroid.data.cinemaRoom.dao.CinemaRoomDAO
 import com.nat.cineandroid.data.movie.dao.MovieDAO
@@ -109,5 +110,28 @@ class SessionRepository @Inject constructor(
 
     suspend fun getSessionFromCache(sessionId: Int): SessionEntity {
         return sessionDAO.getSessionById(sessionId)
+    }
+
+    suspend fun reserveSeats(
+        sessionId: Int,
+        userId: Int,
+        seatNumbers: List<Int>
+    ): HttpResult<ReservationEntity> {
+        return httpClient.createData(
+            networkCall = {
+                val createResesrvationRequestDTO = CreateResesrvationRequestDTO(
+                    sessionId,
+                    userId,
+                    seatNumbers
+                )
+                apiService.reserveSeats(createResesrvationRequestDTO)
+            },
+            saveToCache = { reservation: ReservationEntity ->
+                sessionDAO.upsertReservation(reservation)
+            },
+            transformResponse = { dto ->
+                dto.toReservationEntity()
+            }
+        )
     }
 }

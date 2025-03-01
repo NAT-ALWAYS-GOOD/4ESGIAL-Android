@@ -48,6 +48,7 @@ class HttpClient @Inject constructor(
         return if (networkHelper.isNetworkAvailable()) {
             try {
                 val response = networkCall()
+                Log.d("Network", "Response code: ${response.code()} - Body: ${response.errorBody()?.string() ?: response.body()?.toString()}")
                 if (!response.isSuccessful) HttpResult.HttpError(
                     response.code(),
                     response.message()

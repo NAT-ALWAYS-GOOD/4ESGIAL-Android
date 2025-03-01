@@ -38,6 +38,9 @@ interface SessionDAO {
     suspend fun getUserReservations(userId: Int): List<ReservationEntity>
 
     @Upsert
+    suspend fun upsertReservation(reservation: ReservationEntity)
+
+    @Upsert
     suspend fun upsertReservations(reservations: List<ReservationEntity>)
 
     @Query(
