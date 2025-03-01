@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/Base.Theme.NATCineAndroid"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?colorSurface">
+
+    <!-- Header / Barre de navigation -->
+    <LinearLayout
+        android:id="@+id/headerLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <include
+            android:id="@+id/back_button"
+            layout="@layout/back_button" />
+
+        <TextView
+            android:id="@+id/pageTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="16dp"
+            android:text="Select Date"
+            android:textColor="?colorOnSurface"
+            android:textSize="32sp" />
+    </LinearLayout>
+
+    <!-- Affiche du film -->
+    <ImageView
+        android:id="@+id/moviePoster"
+        android:layout_width="200dp"
+        android:layout_height="300dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/headerLayout" />
+
+    <!-- Détails film / salle -->
+    <TextView
+        android:id="@+id/movieTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Movie Title"
+        android:textColor="?colorOnSurface"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/moviePoster"
+        app:layout_constraintTop_toTopOf="@+id/moviePoster" />
+
+    <TextView
+        android:id="@+id/theaterName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Theater"
+        android:textColor="?colorOnSurface"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/moviePoster"
+        app:layout_constraintTop_toBottomOf="@+id/movieTitle" />
+
+    <TextView
+        android:id="@+id/sessionDateTime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:maxLines="3"
+        android:ellipsize="end"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Mar 1, 2025 19:30"
+        android:textColor="?colorOnSurface"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/moviePoster"
+        app:layout_constraintTop_toBottomOf="@+id/theaterName" />
+
+    <TextView
+        android:id="@+id/selectedSeatsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Seats: 12, 13"
+        android:textSize="16sp"
+        android:textColor="?colorOnSurface"
+        app:layout_constraintStart_toEndOf="@+id/moviePoster"
+        app:layout_constraintTop_toBottomOf="@+id/sessionDateTime" />
+
+    <TextView
+        android:id="@+id/totalPriceText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total: 10.00€"
+        android:textSize="24sp"
+        android:textColor="?colorOnSurface"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="40dp"
+        app:layout_constraintTop_toBottomOf="@id/moviePoster"
+        app:layout_constraintBottom_toTopOf="@+id/paymentOptionsLayout"
+        android:layout_marginBottom="8dp" />
+
+    <LinearLayout
+        android:id="@+id/paymentOptionsLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/totalPriceText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/creditCardButton"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:text="Credit Card"
+            android:gravity="center_vertical"
+            app:icon="@drawable/credit_card"
+            app:iconSize="40dp"
+            app:iconPadding="16dp"
+            android:layout_marginBottom="8dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/paypalButton"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:text="PayPal"
+            android:gravity="center_vertical"
+            app:icon="@drawable/paypal"
+            app:iconGravity="textStart"
+            app:iconSize="40dp"
+            app:iconPadding="16dp"
+            android:layout_marginBottom="8dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/googlePayButton"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:text="Google Pay"
+            android:gravity="center_vertical"
+            app:icon="@drawable/google_pay"
+            app:iconGravity="textStart"
+            app:iconSize="40dp"
+            app:iconPadding="16dp" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

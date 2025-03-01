@@ -55,7 +55,16 @@ class BookingFragment : Fragment() {
 
         binding.checkoutButton.setOnClickListener {
             val selectedSeats = seatAdapter.getSelectedSeats()
-            Log.d("SelectSessionFragment", "Selected seats: $selectedSeats")
+
+            if (selectedSeats.isNotEmpty()) {
+                val action = BookingFragmentDirections.actionBookingFragmentToPaymentTab(
+                    movieId = args.movieId,
+                    theaterId = args.theaterId,
+                    sessionId = viewModel.selectedSession.value!!.session.id,
+                    seatIds = selectedSeats.map { it.seatNumber }.toIntArray()
+                )
+                findNavController().navigate(action)
+            }
         }
 
         binding.backButton.root.setOnClickListener {

@@ -33,4 +33,8 @@ class TheaterRepository @Inject constructor(
             }
         )
     }
+
+    suspend fun getTheaterFromCache(theaterId: Int): TheaterEntity {
+        return theaterDAO.getTheaterById(theaterId)
+    }
 }

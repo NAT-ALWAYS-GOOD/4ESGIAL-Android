@@ -12,4 +12,7 @@ interface TheaterDAO {
 
     @Query("SELECT * FROM theater")
     suspend fun getTheaters(): List<TheaterEntity>
+
+    @Query("SELECT * FROM theater WHERE id = :theaterId")
+    suspend fun getTheaterById(theaterId: Int): TheaterEntity
 }

@@ -73,6 +73,29 @@
         <argument
             android:name="theaterId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_bookingFragment_to_payment_tab"
+            app:destination="@id/payment_tab" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/payment_tab"
+        android:name="com.nat.cineandroid.ui.payment.PaymentFragment"
+        tools:layout="@layout/fragment_payment">
+        <argument
+            android:name="movieId"
+            app:argType="integer" />
+        <argument
+            android:name="theaterId"
+            app:argType="integer" />
+        <argument
+            android:name="sessionId"
+            app:argType="integer" />
+        <argument
+            android:name="seatIds"
+            app:argType="integer[]"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
 
     <fragment

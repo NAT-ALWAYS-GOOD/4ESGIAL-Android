@@ -10,6 +10,7 @@ import com.nat.cineandroid.data.movie.dao.MovieDAO
 import com.nat.cineandroid.data.session.dao.SessionDAO
 import com.nat.cineandroid.data.session.entity.FullReservationsData
 import com.nat.cineandroid.data.session.entity.ReservationEntity
+import com.nat.cineandroid.data.session.entity.SessionEntity
 import com.nat.cineandroid.data.session.entity.SessionWithSeats
 import com.nat.cineandroid.data.theater.dao.TheaterDAO
 import java.time.Instant
@@ -104,5 +105,9 @@ class SessionRepository @Inject constructor(
                     }
             }
         )
+    }
+
+    suspend fun getSessionFromCache(sessionId: Int): SessionEntity {
+        return sessionDAO.getSessionById(sessionId)
     }
 }

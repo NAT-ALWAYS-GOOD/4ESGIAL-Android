@@ -52,4 +52,7 @@ interface SessionDAO {
 
     @Upsert
     suspend fun upsertSeats(seats: List<SeatEntity>)
+
+    @Query("SELECT * FROM session WHERE id = :sessionId")
+    suspend fun getSessionById(sessionId: Int): SessionEntity
 }
