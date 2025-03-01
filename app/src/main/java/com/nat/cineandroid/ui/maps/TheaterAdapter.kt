@@ -75,9 +75,9 @@ class TheaterAdapter(
         ) {
             binding.textViewTheaterName.text = theater.name
 
-            val selectedColor = binding.root.context.getColor(com.nat.cineandroid.R.color.red20)
+            val selectedColor = binding.root.context.getColor(android.R.color.holo_red_dark)
             val defaultColor = binding.root.context.getColor(com.nat.cineandroid.R.color.red)
-            binding.root.setBackgroundColor(if (isSelected) selectedColor else defaultColor)
+            binding.root.setCardBackgroundColor(if (isSelected) selectedColor else defaultColor)
 
             binding.root.setOnClickListener { onItemClicked(theater) }
 

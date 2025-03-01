@@ -90,17 +90,19 @@ class HomeFragment : Fragment() {
         viewModel.theaters.observe(viewLifecycleOwner) { theaters ->
             Log.d("HomeFragment", "Theaters received: ${theaters.size}")
 
-            val user = userViewModel.user.value
+            if (locationViewModel.selectedTheater.value == null) {
+                val user = userViewModel.user.value
 
-            if (user != null && user.favoriteTheaterId != null) {
-                val favoriteTheater = theaters.find { it.id == user.favoriteTheaterId }
-                if (favoriteTheater != null) {
-                    locationViewModel.updateSelectedTheater(favoriteTheater)
+                if (user != null && user.favoriteTheaterId != null) {
+                    val favoriteTheater = theaters.find { it.id == user.favoriteTheaterId }
+                    if (favoriteTheater != null) {
+                        locationViewModel.updateSelectedTheater(favoriteTheater)
+                    } else {
+                        locationViewModel.selectClosestTheater(theaters)
+                    }
                 } else {
                     locationViewModel.selectClosestTheater(theaters)
                 }
-            } else {
-                locationViewModel.selectClosestTheater(theaters)
             }
 
             viewModel.fetchMoviesWithSessions(theaterId = locationViewModel.selectedTheater.value!!.id)
