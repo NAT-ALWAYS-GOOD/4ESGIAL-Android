@@ -29,11 +29,9 @@ android {
     buildTypes {
         debug {
             buildConfigField("String", "BASE_URL", "\"http://10.0.2.2:3000/\"")
-            resValue("string", "network_security_config", "@xml/network_security_config_debug")
         }
         release {
             buildConfigField("String", "BASE_URL", "\"http://localhost:3000/\"")
-            resValue("string", "network_security_config", "@xml/network_security_config_release")
             isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -70,6 +68,8 @@ dependencies {
     implementation(libs.androidx.legacy.support.v4)
     implementation(libs.androidx.recyclerview)
     implementation(libs.play.services.maps)
+    testImplementation(libs.androidx.runner)
+    testImplementation(libs.androidx.junit)
     ksp(libs.androidx.room.compiler)
 
     // Hilt
@@ -103,6 +103,9 @@ dependencies {
     testImplementation(libs.mockito.core)
     testImplementation(libs.mockito.kotlin)
     testImplementation(libs.kotlinx.coroutines.test)
+    implementation(libs.androidx.core)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(libs.assertj.core)
+    androidTestImplementation(libs.kotlinx.coroutines.test)
 }
