@@ -3,7 +3,6 @@ package com.nat.cineandroid.core.api.nat.service
 import com.nat.cineandroid.core.api.Authenticated
 import com.nat.cineandroid.core.api.nat.dto.session.CreateResesrvationRequestDTO
 import com.nat.cineandroid.core.api.nat.dto.session.ReservationResponseDTO
-import com.nat.cineandroid.core.api.nat.dto.session.ReservationWithoutTheaterResponseDTO
 import com.nat.cineandroid.core.api.nat.dto.session.SessionResponseDTO
 import retrofit2.Response
 import retrofit2.http.Body
@@ -24,5 +23,5 @@ interface SessionService {
 
     @POST("sessions/reservation")
     @Authenticated
-    suspend fun reserveSeats(@Body createResesrvationRequestDTO: CreateResesrvationRequestDTO): Response<ReservationWithoutTheaterResponseDTO>
+    suspend fun reserveSeats(@Body createResesrvationRequestDTO: CreateResesrvationRequestDTO): Response<ReservationResponseDTO>
 }
