@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="16dp"
-            android:text="Select Date"
+            android:text="@string/select_date"
             android:textColor="?colorOnSurface"
             android:textSize="32sp" />
     </LinearLayout>
@@ -92,7 +92,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
-                        android:text="Disponible"
+                        android:text="@string/seat_available"
                         android:textColor="?colorOnSurface"
                         android:textSize="12sp" />
                 </LinearLayout>
@@ -118,7 +118,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
-                        android:text="Réservé"
+                        android:text="@string/seat_reserved"
                         android:textColor="?colorOnSurface"
                         android:textSize="12sp" />
                 </LinearLayout>
@@ -144,7 +144,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
-                        android:text="Sélectionné"
+                        android:text="@string/seat_selected"
                         android:textColor="?colorOnSurface"
                         android:textSize="12sp" />
                 </LinearLayout>
@@ -178,7 +178,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Choisir le jour"
+                android:text="@string/choose_day"
                 android:textColor="?colorOnSurface"
                 android:textSize="24sp"
                 app:layout_constraintTop_toTopOf="parent"
@@ -204,7 +204,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:gravity="center"
-                android:text="Choisir la séance"
+                android:text="@string/choose_session"
                 android:textColor="?colorOnSurface"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -231,7 +231,7 @@
                 android:layout_height="70dp"
                 android:layout_margin="16dp"
                 android:textSize="16sp"
-                android:text="Checkout"
+                android:text="@string/checkout"
                 app:layout_constraintTop_toBottomOf="@+id/timeRecyclerView"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

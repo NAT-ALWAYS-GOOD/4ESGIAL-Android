@@ -49,7 +49,7 @@ class ProfileFragment : Fragment() {
             navController.navigate(action)
             return
         }
-        binding.welcomeMessage.text = "Bienvenue, ${userClaims.username}!"
+        binding.welcomeMessage.text = getString(com.nat.cineandroid.R.string.welcome_message, userClaims.username)
 
         viewModel.reservations.observe(viewLifecycleOwner) { reservations ->
             Log.d("ProfileFragment", "Reservations: $reservations")

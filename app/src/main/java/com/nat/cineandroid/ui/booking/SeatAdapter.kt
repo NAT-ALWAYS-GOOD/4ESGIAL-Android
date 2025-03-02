@@ -7,81 +7,6 @@ import com.nat.cineandroid.data.session.entity.SeatEntity
 import com.nat.cineandroid.databinding.ItemGapBinding
 import com.nat.cineandroid.databinding.ItemSeatBinding
 
-//class SeatAdapter(
-//    private val onItemClicked: (SeatEntity) -> Unit
-//) : RecyclerView.Adapter<SeatAdapter.SeatViewHolder>() {
-//
-//    private var seats: List<SeatEntity> = emptyList()
-//    private var selectedSeatNumbers = mutableSetOf<Int>()
-//
-//    fun submitList(newSeats: List<SeatEntity>) {
-//        seats = newSeats
-//        notifyDataSetChanged()
-//    }
-//
-//    fun getSelectedSeats(): List<SeatEntity> {
-//        return seats.filter { selectedSeatNumbers.contains(it.seatNumber) }
-//    }
-//
-//    private fun toggleSeatSelection(seatNumber: Int) {
-//        if (selectedSeatNumbers.contains(seatNumber)) {
-//            selectedSeatNumbers.remove(seatNumber)
-//        } else {
-//            selectedSeatNumbers.add(seatNumber)
-//        }
-//        notifyDataSetChanged()
-//    }
-//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SeatViewHolder {
-//        val binding = ItemSeatBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-//        return SeatViewHolder(binding)
-//    }
-//
-//    override fun onBindViewHolder(holder: SeatViewHolder, position: Int) {
-//        val seat = seats[position]
-//        holder.bind(seat, selectedSeatNumbers, onItemClicked) { seatNumber ->
-//            // Ne permet de changer la sélection que si le siège n'est pas réservé
-//            if (!seat.isReserved) {
-//                toggleSeatSelection(seatNumber)
-//            }
-//        }
-//    }
-//
-//    override fun getItemCount(): Int = seats.size
-//
-//    class SeatViewHolder(private val binding: ItemSeatBinding) : RecyclerView.ViewHolder(binding.root) {
-//        /**
-//         * @param selectedSeatNumbers Ensemble des numéros de sièges actuellement sélectionnés.
-//         * @param onItemClicked Callback appelé lorsqu'un siège est cliqué.
-//         * @param toggleSelection Callback pour basculer la sélection d'un siège.
-//         */
-//        fun bind(
-//            seat: SeatEntity,
-//            selectedSeatNumbers: Set<Int>,
-//            onItemClicked: (SeatEntity) -> Unit,
-//            toggleSelection: (Int) -> Unit
-//        ) {
-//            binding.seatLabel.text = seat.seatNumber.toString()
-//            val context = binding.root.context
-//            // Détermine la couleur de fond :
-//            // - Rouge si le siège est réservé.
-//            // - Bleu si le siège est sélectionné.
-//            // - Vert sinon (disponible).
-//            val bgColor = when {
-//                seat.isReserved -> context.getColor(android.R.color.holo_red_dark)
-//                selectedSeatNumbers.contains(seat.seatNumber) -> context.getColor(android.R.color.holo_blue_dark)
-//                else -> context.getColor(android.R.color.holo_green_light)
-//            }
-//            binding.seatLabel.setBackgroundColor(bgColor)
-//
-//            binding.root.setOnClickListener {
-//                // On déclenche la bascule de la sélection
-//                toggleSelection(seat.seatNumber)
-//                onItemClicked(seat)
-//            }
-//        }
-//    }
-//}
-
 private const val TYPE_SEAT = 0
 private const val TYPE_GAP = 1
 
@@ -159,7 +84,7 @@ class SeatAdapter(
             onItemClicked: (SeatEntity) -> Unit,
             toggleSelection: (Int) -> Unit
         ) {
-            binding.seatLabel.text = seat.seatNumber.toString()
+            binding.seatLabel.text = itemView.context.getString(com.nat.cineandroid.R.string.seat_number, seat.seatNumber)
             val context = binding.root.context
             val bgColor = when {
                 seat.isReserved -> context.getColor(android.R.color.holo_red_dark)

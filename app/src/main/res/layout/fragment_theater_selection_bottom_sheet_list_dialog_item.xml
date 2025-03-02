@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="32sp"
-            android:text="Nom du cinéma"
+            android:text="@string/theater"
             android:textColor="?colorOnPrimary" />
 
         <ImageView
@@ -30,7 +30,7 @@
             android:layout_height="40dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:contentDescription="Ajouter un favoris"
+            android:contentDescription="@string/add_favorite"
             android:padding="4dp"
             android:src="@drawable/heart_empty"
             app:tint="?colorOnPrimary"

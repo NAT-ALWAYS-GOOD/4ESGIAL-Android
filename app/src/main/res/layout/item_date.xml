@@ -14,6 +14,6 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:gravity="center"
-        android:text="May 1"
+        android:text="@string/session_date"
         android:textColor="@color/white" />
 </com.google.android.material.card.MaterialCardView>

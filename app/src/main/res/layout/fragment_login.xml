@@ -23,13 +23,15 @@
 
     <ImageView
         style="@style/logo"
+        android:contentDescription="@string/logo"
         android:layout_marginBottom="50dp" />
 
     <EditText
         android:id="@+id/usernameEditText"
         style="@style/editText"
+        android:autofillHints="username"
         android:backgroundTint="?colorOnPrimary"
-        android:hint="Nom d'utilisateur"
+        android:hint="@string/username"
         android:inputType="textEmailAddress"
         android:textColor="?colorOnPrimary"
         android:textColorHint="?colorTertiary" />
@@ -37,8 +39,9 @@
     <EditText
         android:id="@+id/passwordEditText"
         style="@style/editText"
+        android:autofillHints="password"
         android:backgroundTint="?colorOnPrimary"
-        android:hint="Mot de passe"
+        android:hint="@string/password"
         android:inputType="textPassword"
         android:textColor="?colorOnPrimary"
         android:textColorHint="?colorTertiary" />
@@ -47,7 +50,7 @@
         android:id="@+id/loginButton"
         style="@style/buttonWhite"
         android:enabled="false"
-        android:text="Se connecter" />
+        android:text="@string/login" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -58,7 +61,7 @@
 
         <TextView
             style="@style/text"
-            android:text="Pas encore de compte ?" />
+            android:text="@string/no_account_yet" />
 
 
         <TextView

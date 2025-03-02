@@ -18,7 +18,7 @@
             android:id="@+id/theaterName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Theater Name"
+            android:text="@string/theater"
             android:textColor="?colorOnSecondary"
             android:textSize="14sp"
             android:layout_marginTop="2dp" />
@@ -27,7 +27,7 @@
             android:id="@+id/roomName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Room Name"
+            android:text="@string/room_name"
             android:textColor="?colorOnSecondary"
             android:textSize="14sp"
             android:layout_marginTop="2dp" />
@@ -37,7 +37,6 @@
             android:id="@+id/reservationNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Reservation #12345"
             android:textColor="?colorOnSecondary"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -47,7 +46,7 @@
             android:id="@+id/movieName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Movie Title"
+            android:text="@string/movie_title"
             android:textColor="?colorOnSecondary"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -58,7 +57,6 @@
             android:id="@+id/reservationDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Date: 01/01/2025"
             android:textColor="?colorOnSecondary"
             android:textSize="14sp"
             android:layout_marginTop="4dp" />
@@ -68,7 +66,6 @@
             android:id="@+id/sessionTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Début: 14:00 - Fin: 16:00"
             android:textColor="?colorOnSecondary"
             android:textSize="14sp"
             android:layout_marginTop="2dp" />

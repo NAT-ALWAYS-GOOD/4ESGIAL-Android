@@ -35,19 +35,29 @@ class ReservationAdapter(
 
     override fun getItemCount(): Int = reservations.size
 
-    class ReservationViewHolder(val binding: ItemReservationBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ReservationViewHolder(val binding: ItemReservationBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ReservationItemData) {
             binding.theaterName.text = item.theater.name
             binding.roomName.text = item.cinemaRoom.name
-            binding.reservationNumber.text = "Reservation #${item.reservation.reference}"
+            binding.reservationNumber.text = itemView.context.getString(
+                com.nat.cineandroid.R.string.reservation_reference,
+                item.reservation.reference
+            )
             binding.movieName.text = item.movie.title
 
-            val dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy").withZone(ZoneId.systemDefault())
-            val hoursFormatter = DateTimeFormatter.ofPattern("HH:mm").withZone(ZoneId.systemDefault())
+            val dateFormatter =
+                DateTimeFormatter.ofPattern("dd/MM/yyyy").withZone(ZoneId.systemDefault())
+            val hoursFormatter =
+                DateTimeFormatter.ofPattern("HH:mm").withZone(ZoneId.systemDefault())
             binding.reservationDate.text = "${dateFormatter.format(item.session.startTime)}"
             val start = hoursFormatter.format(item.session.startTime)
             val end = hoursFormatter.format(item.session.endTime)
-            binding.sessionTime.text = "$start - $end"
+            binding.sessionTime.text = itemView.context.getString(
+                com.nat.cineandroid.R.string.session_hours,
+                start,
+                end
+            )
         }
     }
 }

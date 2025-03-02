@@ -23,6 +23,7 @@
 
     <ImageView
         style="@style/logo"
+        android:contentDescription="@string/logo"
         android:layout_marginBottom="50dp" />
 
     <EditText
@@ -30,7 +31,7 @@
         style="@style/editText"
         android:autofillHints="username"
         android:backgroundTint="?colorOnPrimary"
-        android:hint="Nom d'utilisateur"
+        android:hint="@string/username"
         android:inputType="textEmailAddress"
         android:textColor="?colorOnPrimary"
         android:textColorHint="?colorTertiary" />
@@ -40,7 +41,7 @@
         style="@style/editText"
         android:autofillHints="password"
         android:backgroundTint="?colorOnPrimary"
-        android:hint="Mot de passe"
+        android:hint="@string/password"
         android:inputType="textPassword"
         android:textColor="?colorOnPrimary"
         android:textColorHint="?colorTertiary" />
@@ -50,7 +51,7 @@
         style="@style/editText"
         android:autofillHints="password"
         android:backgroundTint="?colorOnPrimary"
-        android:hint="Confirmation mot de passe"
+        android:hint="@string/confirm_password"
         android:inputType="textPassword"
         android:textColor="?colorOnPrimary"
         android:textColorHint="?colorTertiary" />
@@ -59,7 +60,7 @@
         android:id="@+id/registerButton"
         style="@style/buttonWhite"
         android:enabled="false"
-        android:text="S'inscrire" />
+        android:text="@string/register" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -70,7 +71,7 @@
 
         <TextView
             style="@style/text"
-            android:text="Vous avez déjà un compte ?" />
+            android:text="@string/account_already_exists" />
 
 
         <TextView
