@@ -1,6 +1,5 @@
 package com.nat.cineandroid.data.user.repository
 
-import android.util.Log
 import com.nat.cineandroid.core.api.HttpClient
 import com.nat.cineandroid.core.api.HttpResult
 import com.nat.cineandroid.core.api.JwtTokenProvider

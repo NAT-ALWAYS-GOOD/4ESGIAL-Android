@@ -11,7 +11,6 @@ import androidx.core.app.ActivityCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.nat.cineandroid.R
 import com.nat.cineandroid.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -50,24 +49,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED) {
+            != PackageManager.PERMISSION_GRANTED
+        ) {
             locationPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
         }
     }
 
-    fun navigateToLogin() {
-        navController.navigate(R.id.loginFragment)
-    }
-
-    fun navigateToRegister() {
-        navController.navigate(R.id.registerFragment)
-    }
-
-    fun navigateToHome() {
+    private fun navigateToHome() {
         navController.navigate(R.id.billboard_tab)
-    }
-
-    fun navigateBack() {
-        navController.popBackStack()
     }
 }

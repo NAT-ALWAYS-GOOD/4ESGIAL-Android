@@ -11,5 +11,4 @@ interface NATCinemasAPI :
     MovieService,
     CinemaRoomService,
     TheaterService,
-    SessionService {
-}
+    SessionService

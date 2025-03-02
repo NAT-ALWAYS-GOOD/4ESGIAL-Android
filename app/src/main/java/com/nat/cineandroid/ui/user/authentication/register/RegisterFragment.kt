@@ -86,7 +86,8 @@ class RegisterFragment : Fragment() {
         viewModel.state.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is RegisterState.Success -> {
-                    val action = RegisterFragmentDirections.actionRegisterFragmentToProfileFragment()
+                    val action =
+                        RegisterFragmentDirections.actionRegisterFragmentToProfileFragment()
                     navController.navigate(action)
                 }
 

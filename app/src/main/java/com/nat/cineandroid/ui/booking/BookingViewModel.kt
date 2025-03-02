@@ -61,7 +61,8 @@ class BookingViewModel @Inject constructor(
                         val defaultTime = extractTime(session.session.startTime)
                         _selectedTime.value = defaultTime
                         Log.d("BookingViewModel", "Default time: $defaultTime")
-                        _selectedSession.value = result.data.first { extractTime(it.session.startTime) == defaultTime }
+                        _selectedSession.value =
+                            result.data.first { extractTime(it.session.startTime) == defaultTime }
                     }
                 }
 
@@ -85,7 +86,8 @@ class BookingViewModel @Inject constructor(
         val sessionsForDate =
             _sessions.value?.filter { extractDate(it.session.startTime) == date } ?: emptyList()
         if (sessionsForDate.isNotEmpty()) {
-            val defaultTime = extractTime(sessionsForDate.minByOrNull { it.session.startTime }!!.session.startTime)
+            val defaultTime =
+                extractTime(sessionsForDate.minByOrNull { it.session.startTime }!!.session.startTime)
             _selectedTime.value = defaultTime
             _selectedSession.value =
                 sessionsForDate.first { extractTime(it.session.startTime) == defaultTime }

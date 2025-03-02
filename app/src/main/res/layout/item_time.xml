@@ -14,6 +14,5 @@
         android:layout_width="80dp"
         android:layout_height="30dp"
         android:gravity="center"
-        android:text="8:45 pm"
         android:textColor="@color/white" />
 </com.google.android.material.card.MaterialCardView>

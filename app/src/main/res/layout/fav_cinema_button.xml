@@ -31,7 +31,7 @@
                 style="@style/text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Changer de cinéma" />
+                android:text="@string/change_theater" />
 
         </LinearLayout>
 

@@ -90,10 +90,15 @@ class PaymentFragment : Fragment() {
         binding.theaterName.text = state.theaterName
         val date = viewModel.extractDate(state.sessionStartTime)
         val time = viewModel.extractTime(state.sessionStartTime)
-        binding.sessionDateTime.text = "$date $time"
-        binding.selectedSeatsText.text = "Seats: ${state.seatNumbers.joinToString(", ")}"
+        binding.sessionDateTime.text =
+            getString(com.nat.cineandroid.R.string.session_date, date, time)
+        binding.selectedSeatsText.text = getString(
+            com.nat.cineandroid.R.string.seats_selected,
+            state.seatNumbers.joinToString(", ")
+        )
 
-        binding.totalPriceText.text = "Total: ${state.totalPrice} €"
+        binding.totalPriceText.text =
+            getString(com.nat.cineandroid.R.string.total_price, state.totalPrice)
     }
 
     override fun onDestroyView() {

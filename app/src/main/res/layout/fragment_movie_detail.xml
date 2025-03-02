@@ -10,7 +10,7 @@
         android:id="@+id/backgroundPoster"
         android:layout_width="0dp"
         android:layout_height="400dp"
-        android:contentDescription="@string/the_poster_of_the_movie"
+        android:contentDescription="@string/movie_poster_default_content_description"
         android:scaleType="centerCrop"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="Trailer"
+            android:text="@string/trailer"
             android:textColor="?colorOnPrimary"
             android:textStyle="bold" />
     </LinearLayout>
@@ -89,7 +89,7 @@
         android:id="@+id/bookButton"
         android:layout_width="0dp"
         android:layout_height="70dp"
-        android:text="Book"
+        android:text="@string/book"
         android:textSize="24sp"
         android:textAllCaps="false"
         android:backgroundTint="?colorPrimary"

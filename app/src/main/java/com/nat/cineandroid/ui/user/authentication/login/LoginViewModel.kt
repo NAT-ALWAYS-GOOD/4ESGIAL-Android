@@ -26,6 +26,7 @@ class LoginViewModel @Inject constructor(private val userRepository: UserReposit
                         _state.value = LoginState.Error(result.message)
                     }
                 }
+
                 is HttpResult.NetworkError -> _state.value =
                     LoginState.Error("Network error: ${result.message}")
 

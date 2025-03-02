@@ -25,6 +25,7 @@ class RegisterViewModel @Inject constructor(private val userRepository: UserRepo
                 } else {
                     RegisterState.Error(result.message)
                 }
+
                 is HttpResult.NetworkError -> _state.value =
                     RegisterState.Error("Network error: ${result.message}")
 

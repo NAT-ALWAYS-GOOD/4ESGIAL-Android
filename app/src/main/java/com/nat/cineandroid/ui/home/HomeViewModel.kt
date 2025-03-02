@@ -26,14 +26,10 @@ class HomeViewModel @Inject constructor(
     private val _theaters = MutableLiveData<List<TheaterEntity>>()
     val theaters: LiveData<List<TheaterEntity>> get() = _theaters
 
-    private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean> get() = _isLoading
-
     private val _errorMessage = MutableLiveData<String?>()
     val errorMessage: LiveData<String?> get() = _errorMessage
 
     fun fetchMoviesWithSessions(theaterId: Int) {
-        _isLoading.value = true
         _errorMessage.value = null
 
         viewModelScope.launch {
@@ -54,12 +50,10 @@ class HomeViewModel @Inject constructor(
                     _errorMessage.postValue("No Data: ${result.message}")
                 }
             }
-            _isLoading.postValue(false)
         }
     }
 
     fun fetchTheaters() {
-        _isLoading.value = true
         _errorMessage.value = null
 
         viewModelScope.launch {
@@ -81,7 +75,6 @@ class HomeViewModel @Inject constructor(
                     _errorMessage.postValue("No Data: ${result.message}")
                 }
             }
-            _isLoading.postValue(false)
         }
     }
 }

@@ -5,7 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nat.cineandroid.databinding.ItemDateBinding
 
-class DateAdapter(private val onItemClicked: (String) -> Unit) : RecyclerView.Adapter<DateAdapter.DateViewHolder>() {
+class DateAdapter(private val onItemClicked: (String) -> Unit) :
+    RecyclerView.Adapter<DateAdapter.DateViewHolder>() {
 
     private var dates: List<String> = emptyList()
     private var selectedDate: String? = null
@@ -33,7 +34,8 @@ class DateAdapter(private val onItemClicked: (String) -> Unit) : RecyclerView.Ad
 
     override fun getItemCount(): Int = dates.size
 
-    class DateViewHolder(private val binding: ItemDateBinding) : RecyclerView.ViewHolder(binding.root) {
+    class DateViewHolder(private val binding: ItemDateBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(date: String, isSelected: Boolean, onItemClicked: (String) -> Unit) {
             binding.dateLabel.text = date
             // Changer la couleur de fond en fonction de l'état de sélection

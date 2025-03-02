@@ -9,7 +9,7 @@ import javax.inject.Singleton
 @Singleton
 class AuthInterceptor @Inject constructor(
     private val jwtTokenProvider: JwtTokenProvider
-): Interceptor {
+) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
         val method = request.tag(Invocation::class.java)?.method()

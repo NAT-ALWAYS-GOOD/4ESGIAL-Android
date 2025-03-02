@@ -11,11 +11,4 @@ data class ReservationPartialResponseDTO(
     val createdAt: String,
     @SerializedName("qrCode")
     val qrCode: String
-) {
-    fun toReservationEntity(): ReservationEntity =
-        ReservationEntity(
-            reference = reference,
-            createdAt = java.time.Instant.parse(createdAt),
-            qrCode = qrCode
-        )
-}
+)

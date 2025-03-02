@@ -1,22 +1,58 @@
 <resources>
     <string name="app_name">NAT Cine Android</string>
-    <string name="movie_poster_default_content_description">Movie Poster</string>
-    <string name="release_date_label">Release Date</string>
-    <string name="search_hint">Search…</string>
-    <string name="theater_search_description">Search theaters</string>
-    <string name="leading_icon_content_description">Leading Icon</string>
-    <string name="trailing_icon_content_description">Trailing Icon</string>
-    <string name="chevron_right">chevron_right</string>
-    <string name="favorite_cinema">Favorite cinema</string>
+
+    <string name="movie_poster_default_content_description">Affiche du film</string>
+    <string name="reservation_qr_code">Reservation QR Code</string>
+    <string name="play_trailer">Lire la bande-annonce</string>
+    <string name="logo">Logo de NATCineandroid</string>
+    <string name="trailer">Bande-Annonce</string>
+    <string name="movie_title">Titre du film</string>
+    <string name="room_name">Nom de la salle</string>
+
+    <string name="release_date_label">Date de sortie</string>
+    <string name="search_hint">Chercher...</string>
+    <string name="theater_search_description">Rechercher un cinéma</string>
+    <string name="chevron_right" translatable="false">chevron_right</string>
+    <string name="favorite_cinema">Cinéma favori</string>
     <string name="register_link_label"><u>S\'inscrire</u></string>
     <string name="login_link_label"><u>Se connecter</u></string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="back_button">Back button</string>
-    <string name="billboard_menu">Billboard</string>
-    <string name="coming_soon_menu">Coming soon</string>
-    <string name="profile_menu">Profile</string>
-    <string name="reservation_qr_code">Reservation QR Code</string>
-    <string name="the_poster_of_the_movie">The poster of the movie</string>
-    <string name="play_trailer">Play trailer</string>
+    <string name="back_button">Bouton de retour</string>
+    <string name="billboard_menu">À l\'affiche</string>
+    <string name="coming_soon_menu">À venir</string>
+    <string name="profile_menu">Profil</string>
+    <string name="change_theater">Changer de cinéma</string>
+    <string name="select_date">Sélectionner la date</string>
+    <string name="seat_available">Disponible</string>
+    <string name="seat_reserved">Réservé</string>
+    <string name="seat_selected">Sélectionné</string>
+    <string name="choose_day">Choisir le jour</string>
+    <string name="choose_session">Choisir la séance</string>
+    <string name="checkout">Valider</string>
+    <string name="username">Nom d\'utilisateur</string>
+    <string name="password">Mot de passe</string>
+    <string name="login">Se connecter</string>
+    <string name="no_account_yet">Pas encore de compte ?</string>
+    <string name="book">Réserver</string>
+    <string name="theater">Cinéma</string>
+    <string name="credit_card_option">Carte de crédit</string>
+    <string name="paypal_option" translatable="false">PayPal</string>
+    <string name="google_pay_option" translatable="false">Google Pay</string>
+    <string name="profile">Profil</string>
+    <string name="my_reservations_to_come">Mes réservations à venir</string>
+    <string name="history_of_reservations">Historique de mes réservations</string>
+    <string name="logout">Déconnexion</string>
+    <string name="confirm_password">Confirmation mot de passe</string>
+    <string name="register">S\'inscrire</string>
+    <string name="account_already_exists">Vous avez déjà un compte ?</string>
+    <string name="choose_theater">Sélectionner un cinéma</string>
+    <string name="confirm">Confirmer</string>
+    <string name="add_favorite">Ajouter un favoris</string>
+
+    <string name="session_date" translatable="false">%1$s %2$s</string>
+    <string name="seats_selected">Sièges: %1$s</string>
+    <string name="total_price">Total: %1$.2f €</string>
+    <string name="reservation_reference">Réservation #%1$s</string>
+    <string name="session_hours" translatable="false">%1$s - %2$s</string>
+    <string name="seat_number" translatable="false">%1$d</string>
+    <string name="welcome_message">Bienvenue, %1$s !</string>
 </resources>
