@@ -9,10 +9,6 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface UserService {
-    /*    @GET("users/{userId}")
-        @Authenticated
-        suspend fun getUser(@Path("userId") userId: Int): Response<UserResponse>
-    */
     @POST("users/login")
     suspend fun login(@Body loginRequest: LoginRequestDTO): Response<LoginResponseDTO>
 
