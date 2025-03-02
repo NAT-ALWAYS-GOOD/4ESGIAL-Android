@@ -15,6 +15,7 @@ class SeatAdapter(
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var items: List<SeatItem> = emptyList()
+
     // Pour gérer la sélection multiple, on utilisera un MutableSet de numéros de sièges sélectionnés.
     private val selectedSeatNumbers = mutableSetOf<Int>()
 
@@ -55,36 +56,50 @@ class SeatAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             TYPE_SEAT -> {
-                val binding = ItemSeatBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                val binding =
+                    ItemSeatBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 SeatViewHolder(binding)
             }
+
             TYPE_GAP -> {
-                val binding = ItemGapBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                val binding =
+                    ItemGapBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 GapViewHolder(binding)
             }
+
             else -> throw IllegalArgumentException("ViewType inconnu")
         }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (val item = items[position]) {
-            is SeatItem.SeatData -> (holder as SeatViewHolder).bind(item.seat, selectedSeatNumbers, onItemClicked) {
+            is SeatItem.SeatData -> (holder as SeatViewHolder).bind(
+                item.seat,
+                selectedSeatNumbers,
+                onItemClicked
+            ) {
                 toggleSeatSelection(it)
             }
-            is SeatItem.Gap -> { /* Rien à binder pour un gap */ }
+
+            is SeatItem.Gap -> { /* Rien à binder pour un gap */
+            }
         }
     }
 
     override fun getItemCount(): Int = items.size
 
-    class SeatViewHolder(private val binding: ItemSeatBinding) : RecyclerView.ViewHolder(binding.root) {
+    class SeatViewHolder(private val binding: ItemSeatBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(
             seat: SeatEntity,
             selectedSeatNumbers: Set<Int>,
             onItemClicked: (SeatEntity) -> Unit,
             toggleSelection: (Int) -> Unit
         ) {
-            binding.seatLabel.text = itemView.context.getString(com.nat.cineandroid.R.string.seat_number, seat.seatNumber)
+            binding.seatLabel.text = itemView.context.getString(
+                com.nat.cineandroid.R.string.seat_number,
+                seat.seatNumber
+            )
             val context = binding.root.context
             val bgColor = when {
                 seat.isReserved -> context.getColor(android.R.color.holo_red_dark)

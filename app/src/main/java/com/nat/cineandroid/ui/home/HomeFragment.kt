@@ -1,7 +1,7 @@
 package com.nat.cineandroid.ui.home
 
-import android.content.Context
 import android.Manifest
+import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
@@ -124,7 +124,7 @@ class HomeFragment : Fragment() {
         val imm =
             requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
-        binding.searchButton.root.setOnClickListener() {
+        binding.searchButton.root.setOnClickListener {
             binding.searchButton.root.visibility = View.GONE
             binding.searchBarComponent.root.visibility = View.VISIBLE
             binding.searchBarComponent.searchEditText.requestFocus()

@@ -5,7 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nat.cineandroid.databinding.ItemTimeBinding
 
-class TimeAdapter(private val onItemClicked: (String) -> Unit) : RecyclerView.Adapter<TimeAdapter.TimeViewHolder>() {
+class TimeAdapter(private val onItemClicked: (String) -> Unit) :
+    RecyclerView.Adapter<TimeAdapter.TimeViewHolder>() {
 
     private var times: List<String> = emptyList()
     private var selectedTime: String? = null
@@ -33,7 +34,8 @@ class TimeAdapter(private val onItemClicked: (String) -> Unit) : RecyclerView.Ad
 
     override fun getItemCount(): Int = times.size
 
-    class TimeViewHolder(private val binding: ItemTimeBinding) : RecyclerView.ViewHolder(binding.root) {
+    class TimeViewHolder(private val binding: ItemTimeBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(time: String, isSelected: Boolean, onItemClicked: (String) -> Unit) {
             binding.timeLabel.text = time
 

@@ -106,7 +106,7 @@ class BookingFragment : Fragment() {
                 val dates = sessions.map { viewModel.extractDate(it.session.startTime) }
                     .distinct()
                     .sorted()
-                val times = sessions.map { viewModel.extractTime(it.session.startTime) }
+                sessions.map { viewModel.extractTime(it.session.startTime) }
                     .distinct()
                     .sorted()
 

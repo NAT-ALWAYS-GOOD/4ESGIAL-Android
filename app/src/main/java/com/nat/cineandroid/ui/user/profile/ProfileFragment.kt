@@ -16,7 +16,8 @@ import kotlin.getValue
 
 @AndroidEntryPoint
 class ProfileFragment : Fragment() {
-    @Inject lateinit var jwtTokenProvider: JwtTokenProvider
+    @Inject
+    lateinit var jwtTokenProvider: JwtTokenProvider
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
     private val viewModel: ProfileViewModel by activityViewModels()
@@ -49,7 +50,8 @@ class ProfileFragment : Fragment() {
             navController.navigate(action)
             return
         }
-        binding.welcomeMessage.text = getString(com.nat.cineandroid.R.string.welcome_message, userClaims.username)
+        binding.welcomeMessage.text =
+            getString(com.nat.cineandroid.R.string.welcome_message, userClaims.username)
 
         viewModel.reservations.observe(viewLifecycleOwner) { reservations ->
             Log.d("ProfileFragment", "Reservations: $reservations")

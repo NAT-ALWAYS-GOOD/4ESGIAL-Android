@@ -44,7 +44,8 @@ class JwtTokenProvider @Inject constructor(@ApplicationContext private val conte
             if (parts.size < 2) return null
 
             val charset: Charset = Charset.forName("UTF-8")
-            val payload = String(Base64.getUrlDecoder().decode(parts[1].toByteArray(charset)), charset)
+            val payload =
+                String(Base64.getUrlDecoder().decode(parts[1].toByteArray(charset)), charset)
             val jsonObject = JSONObject(payload)
             val id = jsonObject.optString("id")
             val username = jsonObject.optString("username")

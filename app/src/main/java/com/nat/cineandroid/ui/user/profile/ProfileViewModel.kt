@@ -32,14 +32,10 @@ class ProfileViewModel @Inject constructor(
         mapFullDataToReservationItems(data).filter { it.session.endTime.isBefore(now) }
     }
 
-    private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean> get() = _isLoading
-
     private val _errorMessage = MutableLiveData<String?>()
     val errorMessage: LiveData<String?> get() = _errorMessage
 
     fun fetchReservations(userId: Int) {
-        _isLoading.value = true
         _errorMessage.value = null
 
         viewModelScope.launch {
@@ -60,7 +56,6 @@ class ProfileViewModel @Inject constructor(
                     _errorMessage.postValue("No Data: ${result.message}")
                 }
             }
-            _isLoading.postValue(false)
         }
     }
 

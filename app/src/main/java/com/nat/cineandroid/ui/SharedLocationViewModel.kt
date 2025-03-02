@@ -13,13 +13,13 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class SharedLocationViewModel @Inject constructor(application: Application) : AndroidViewModel(application) {
+class SharedLocationViewModel @Inject constructor(application: Application) :
+    AndroidViewModel(application) {
 
     private val fusedLocationClient: FusedLocationProviderClient =
         LocationServices.getFusedLocationProviderClient(application)
 
     private val _userLocation = MutableLiveData<Location?>()
-    val userLocation: LiveData<Location?> get() = _userLocation
 
     private val _selectedTheater = MutableLiveData<TheaterEntity>()
     val selectedTheater: LiveData<TheaterEntity> get() = _selectedTheater

@@ -2,7 +2,6 @@ package com.nat.cineandroid.core.api.nat.dto.session
 
 import com.google.gson.annotations.SerializedName
 import com.nat.cineandroid.core.api.nat.dto.cinemaRoom.CinemaRoomPartialResponseDTO
-import com.nat.cineandroid.core.api.nat.dto.movie.MovieResponseDTO
 import com.nat.cineandroid.data.session.entity.SessionEntity
 
 data class SessionPartialResponseWithoutMovieDTO(

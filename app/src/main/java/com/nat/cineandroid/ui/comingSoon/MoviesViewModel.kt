@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.nat.cineandroid.core.api.HttpResult
 import com.nat.cineandroid.data.movie.entity.MovieEntity
 import com.nat.cineandroid.data.movie.repository.MovieRepository
-import com.nat.cineandroid.data.theater.repository.TheaterRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

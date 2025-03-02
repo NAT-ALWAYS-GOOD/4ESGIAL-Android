@@ -84,13 +84,22 @@ class SessionRepository @Inject constructor(
 
         return httpClient.fetchData(
             networkCall = {
-                apiService.getAllSessionsFromMovieIdAndTheaterId(movieId, theaterId).also { response ->
-                    Log.d("SelectSessionFragment", "API response: ${response.body()?.toString()}")
-                }
+                apiService.getAllSessionsFromMovieIdAndTheaterId(movieId, theaterId)
+                    .also { response ->
+                        Log.d(
+                            "SelectSessionFragment",
+                            "API response: ${response.body()?.toString()}"
+                        )
+                    }
             },
             cacheCall = {
                 Log.d("SelectSessionFragment", "Cache response")
-                sessionDAO.getSessionsWithSeatsFromNowToNextWeek(movieId, theaterId, today, weekLater)
+                sessionDAO.getSessionsWithSeatsFromNowToNextWeek(
+                    movieId,
+                    theaterId,
+                    today,
+                    weekLater
+                )
             },
             saveToCache = { sessionWithSeats: List<SessionWithSeats> ->
                 sessionDAO.upsertSessions(sessionWithSeats.map { it.session })

@@ -4,7 +4,6 @@ import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.nat.cineandroid.data.movie.entity.MovieWithSessions
@@ -13,7 +12,7 @@ import com.nat.cineandroid.ui.home.MoviePagerAdapter.MoviesViewHolder
 
 class MoviePagerAdapter(
     private val onMovieClick: (MovieWithSessions) -> Unit
-) : RecyclerView.Adapter<MoviePagerAdapter.MoviesViewHolder>() {
+) : RecyclerView.Adapter<MoviesViewHolder>() {
 
     private val movies = mutableListOf<MovieWithSessions>()
 

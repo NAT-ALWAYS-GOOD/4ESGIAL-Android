@@ -47,7 +47,10 @@ class MovieRepository @Inject constructor(
                 }
                 Log.d("Repository", "Saved movies: ${movieDAO.getMovies()}")
                 Log.d("Repository", "Saved sessions: ${sessionDAO.getSessions()}")
-                Log.d("Repository", "Saved cinema rooms: ${cinemaRoomDAO.getCinemaRoomsByTheaterId(theaterId)}")
+                Log.d(
+                    "Repository",
+                    "Saved cinema rooms: ${cinemaRoomDAO.getCinemaRoomsByTheaterId(theaterId)}"
+                )
             },
             transformResponse = { dtoList: List<MovieResponseWithSessionsDTO> ->
                 val moviesWithSessions = dtoList.map { it.toEntity() }
