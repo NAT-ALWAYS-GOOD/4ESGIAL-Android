@@ -10,7 +10,7 @@
         android:id="@+id/backgroundPoster"
         android:layout_width="0dp"
         android:layout_height="400dp"
-        android:contentDescription="@string/the_poster_of_the_movie"
+        android:contentDescription="@string/movie_poster_default_content_description"
         android:scaleType="centerCrop"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
