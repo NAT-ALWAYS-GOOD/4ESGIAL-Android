@@ -22,6 +22,7 @@ interface MovieDAO {
             FROM cinema_room
             WHERE theaterId = :theaterId
         )
+        AND startTime > CURRENT_TIMESTAMP
     )
 """
     )
